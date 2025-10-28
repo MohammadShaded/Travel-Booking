@@ -32,7 +32,6 @@ The platform allows users to:
 
 ## Quick start
 
-Prerequisites: Node.js (recommended 18+)
 
 1. Install dependencies
 
