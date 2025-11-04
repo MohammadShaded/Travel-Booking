@@ -22,9 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-copilot-instructions.md
 .env
 *storybook.log
 storybook-static
+
+# Documentation
 STORYBOOK.md
 PROJECT_STATUS.md
+DESIGN_SYSTEM.md
+copilot-instructions.md
