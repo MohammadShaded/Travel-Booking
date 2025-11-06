@@ -1,6 +1,7 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import { mergeConfig } from 'vite';
 
+
 const config: StorybookConfig = {
   "stories": [
     "../src/**/*.mdx",
@@ -22,6 +23,7 @@ const config: StorybookConfig = {
       resolve: {
         alias: {
           '@': '/src',
+
         },
       },
       css: {
