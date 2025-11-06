@@ -2,27 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import LoginForm from './LoginForm';
 import type { LoginCredentials } from '@/types';
 
-/**
- * LoginForm component handles user authentication with username and password.
- * 
- * **Features:**
- * - Formik form management with validation
- * - Yup validation schema (username min 3 chars, password min 6 chars)
- * - Loading state with disabled inputs
- * - Animated Input components with focus effects
- * - Gradient button with hover effects
- * 
- * **Validation Rules:**
- * - Username: Required, minimum 3 characters
- * - Password: Required, minimum 6 characters
- * 
- * **Usage:**
- * Used within LoginPage component. Accepts onSubmit callback for API integration
- * and isLoading boolean to disable form during submission.
- * 
- * **Styling:**
- * Uses CSS Modules with design system variables for consistent spacing and colors.
- */
+
 const meta = {
   title: 'Pages/LoginPage/LoginForm',
   component: LoginForm,
@@ -181,66 +161,3 @@ export const WithErrors: Story = {
   },
 };
 
-/**
- * Mobile view of the login form.
- * Shows responsive behavior on small screens.
- */
-export const Mobile: Story = {
-  args: {
-    onSubmit: mockSubmit,
-    isLoading: false,
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'mobile1',
-    },
-    docs: {
-      description: {
-        story: 'Login form on mobile viewport showing responsive design.',
-      },
-    },
-  },
-};
-
-/**
- * Form in a narrow container.
- * Tests responsive behavior in constrained spaces.
- */
-export const NarrowContainer: Story = {
-  args: {
-    onSubmit: mockSubmit,
-    isLoading: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Form in a narrow container to test responsive behavior.',
-      },
-    },
-  },
-  decorators: [
-    (Story) => (
-      <div style={{ maxWidth: '300px' }}>
-        <Story />
-      </div>
-    ),
-  ],
-};
-
-/**
- * Form with focus states visible.
- * Demonstrates the focus animations and input lifting effects.
- */
-export const FocusStates: Story = {
-  args: {
-    onSubmit: mockSubmit,
-    isLoading: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Click into the inputs to see focus animations, label transitions, and input lift effects.',
-      },
-    },
-  },
-};
