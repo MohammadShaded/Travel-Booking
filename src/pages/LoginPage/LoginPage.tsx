@@ -36,8 +36,8 @@ export default function LoginPage() {
       <div className={styles.rightSection}>
         <div className={styles.container}>
           <div className={styles.header}>
-            <h1 className={styles.title}>Welcome Back!</h1>
-            <p className={styles.subtitle}>Sign in to continue your journey</p>
+            <h1 className={styles.title}>Welcome Back</h1>
+            <p className={styles.subtitle}>Sign in to your account</p>
           </div>
 
           {error && <ErrorMessage message={error} onClose={() => clearError()} />}
