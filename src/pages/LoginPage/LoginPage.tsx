@@ -21,7 +21,6 @@ export default function LoginPage() {
       await login(values);
       // Redirect based on user type
       const userType = useAuthStore.getState().userType;
-      console.log("User Type:", userType);
       navigate(userType === 'Admin' ? '/admin' : '/');
     } catch {
       // Error is already set in the store by login()
