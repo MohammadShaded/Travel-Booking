@@ -12,14 +12,14 @@ export interface RegisterCredentials {
 
 export interface AuthResponse {
   token: string;
-  userType: 'user' | 'admin';
+  userType: 'User' | 'Admin';
 }
 
 export interface User {
   id: number;
   username: string;
   name: string;
-  role: 'user' | 'admin';
+  role: 'User' | 'Admin';
 }
 
 // City related types (Based on API: GET /cities)
