@@ -1,0 +1,16 @@
+.profileMenu {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+button{
+  height: 40px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .profileMenu {
+    gap: var(--spacing-sm);
+  }
+}
