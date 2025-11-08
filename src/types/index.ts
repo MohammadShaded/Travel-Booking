@@ -11,7 +11,7 @@ export interface RegisterCredentials {
 }
 
 export interface AuthResponse {
-  token: string;
+  authentication: string;
   userType: 'User' | 'Admin';
 }
 
