@@ -6,6 +6,7 @@
 
 button{
   height: 40px;
+  width: fit-content;
 }
 
 /* ===== RESPONSIVE ===== */

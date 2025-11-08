@@ -7,7 +7,7 @@
   padding: 10px 24px;
   background: white;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text-primary);
@@ -28,11 +28,11 @@
 .profileButton {
   display: flex;
   align-items: center;
+  border-radius: var(--radius-sm);
   gap: var(--spacing-sm);
   padding: 6px 18px 6px 6px;
   background: white;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: var(--radius-full);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
