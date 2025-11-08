@@ -27,7 +27,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       const response = await api.post<AuthResponse>('/auth/authenticate', credentials);
       set({
-        token: response.data.token,
+        token: response.data.authentication,
         userType: response.data.userType,
         isLoading: false,
       });
