@@ -8,9 +8,24 @@ export function useScroll(threshold: number = 50) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > threshold);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY;
+          const shouldScroll = scrollPosition > threshold;
+          
+          // Only update if state actually changed (prevents flickering)
+          if (shouldScroll !== isScrolled) {
+            setIsScrolled(shouldScroll);
+          }
+          
+          ticking = false;
+        });
+
+        ticking = true;
+      }
     };
 
     // Initial check
@@ -22,7 +37,7 @@ export function useScroll(threshold: number = 50) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [threshold]);
+  }, [threshold, isScrolled]);
 
   return { isScrolled };
 }
