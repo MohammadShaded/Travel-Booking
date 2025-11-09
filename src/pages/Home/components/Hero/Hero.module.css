@@ -2,37 +2,12 @@
 .hero {
   position: relative;
   width: 100%;
-  height: 60vh;
-  min-height: 500px;
+  height: 70vh;
   background: linear-gradient(135deg, #f8f9fa 0%, #e8eef3 50%, #e9ecf1 100%);
   overflow-x: visible;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom: 1px solid rgba(15, 32, 39, 0.08);
   scrollbar-width: none;
-}
-
-/* Animated gradient overlay */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 80%, rgba(15, 32, 39, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(44, 83, 100, 0.04) 0%, transparent 50%);
-  animation: gradientShift 15s ease-in-out infinite;
-  transition: opacity 0.3s ease;
-}
-
-@keyframes gradientShift {
-  0%,
-  100% {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-  50% {
-    opacity: 0.8;
-    transform: translate(10px, -10px);
-  }
 }
 
 
