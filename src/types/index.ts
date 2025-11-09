@@ -116,19 +116,18 @@ export interface SearchResult {
   starRating: number;
 }
 
-// Featured Deals (Based on API: GET /deals/featured)
+// Featured Deals (Based on API: GET /home/featured-deals)
 export interface FeaturedDeal {
-  originalPrice: number;
+  hotelId: number;
+  originalRoomPrice: number;
   discount: number;
   finalPrice: number;
-  city: string;
-  hotel: string;
-  hotelName: string;
-  starRating: number;
   cityName: string;
+  hotelName: string;
+  hotelStarRating: number;
   title: string;
   description: string;
-  imageUrl: string;
+  roomPhotoUrl: string;
 }
 
 // Recently Visited Hotels (Based on API: GET /users/{userId}/recent-hotels)
