@@ -5,7 +5,7 @@
   height: 60vh;
   min-height: 500px;
   background: linear-gradient(135deg, #f8f9fa 0%, #e8eef3 50%, #e9ecf1 100%);
-
+  overflow-x: visible;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom: 1px solid rgba(15, 32, 39, 0.08);
   scrollbar-width: none;
@@ -35,38 +35,7 @@
   }
 }
 
-/* Ocean-themed floating orbs */
-.hero::after {
-  content: '';
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(
-    circle,
-    rgba(44, 83, 100, 0.06) 0%,
-    rgba(32, 58, 67, 0.03) 40%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  top: -200px;
-  right: -200px;
-  animation: float 25s ease-in-out infinite;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1) rotate(0deg);
-  }
-  33% {
-    transform: translate(40px, -20px) scale(1.05) rotate(5deg);
-  }
-  66% {
-    transform: translate(-20px, -40px) scale(0.95) rotate(-5deg);
-  }
-}
 
 /* Compact state when scrolled */
 .heroCompact {
