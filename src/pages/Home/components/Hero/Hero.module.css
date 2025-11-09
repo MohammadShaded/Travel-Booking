@@ -1,0 +1,475 @@
+/* ===== HERO CONTAINER ===== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 500px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e8eef3 50%, #e9ecf1 100%);
+
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid rgba(15, 32, 39, 0.08);
+  scrollbar-width: none;
+}
+
+/* Animated gradient overlay */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(15, 32, 39, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(44, 83, 100, 0.04) 0%, transparent 50%);
+  animation: gradientShift 15s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(10px, -10px);
+  }
+}
+
+/* Ocean-themed floating orbs */
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    rgba(44, 83, 100, 0.06) 0%,
+    rgba(32, 58, 67, 0.03) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  top: -200px;
+  right: -200px;
+  animation: float 25s ease-in-out infinite;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(40px, -20px) scale(1.05) rotate(5deg);
+  }
+  66% {
+    transform: translate(-20px, -40px) scale(0.95) rotate(-5deg);
+  }
+}
+
+/* Compact state when scrolled */
+.heroCompact {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  min-height: 70px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(15, 32, 39, 0.08);
+  border-bottom: 1px solid rgba(15, 32, 39, 0.06);
+
+}
+
+.heroCompact::before,
+.heroCompact::after {
+  opacity: 0;
+}
+
+/* ===== DECORATIVE FLOATING ICONS ===== */
+.decorativeIcons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.floatingIcon {
+  position: absolute;
+  font-size: 56px;
+  opacity: 0.06;
+  color: var(--color-primary-dark);
+  filter: blur(0.5px);
+  transition: opacity 0.5s ease;
+}
+
+/* Plane icon - top left area */
+.iconPlane {
+  top: 12%;
+  left: 8%;
+  animation: floatDiagonal 24s ease-in-out infinite;
+}
+
+/* Hotel icon - middle right */
+.iconHotel {
+  top: 35%;
+  right: 6%;
+  animation: floatVertical 20s ease-in-out infinite 3s;
+}
+
+/* Compass icon - bottom left */
+.iconCompass {
+  bottom: 20%;
+  left: 12%;
+  animation: floatRotate 26s ease-in-out infinite 6s;
+}
+
+@keyframes floatDiagonal {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-12deg) scale(1);
+    opacity: 0.06;
+  }
+  25% {
+    opacity: 0.08;
+  }
+  50% {
+    transform: translate(40px, -35px) rotate(8deg) scale(1.05);
+    opacity: 0.06;
+  }
+  75% {
+    opacity: 0.04;
+  }
+}
+
+@keyframes floatVertical {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 0.06;
+  }
+  30% {
+    opacity: 0.08;
+  }
+  50% {
+    transform: translateY(-45px) rotate(12deg) scale(1.08);
+    opacity: 0.06;
+  }
+  80% {
+    opacity: 0.04;
+  }
+}
+
+@keyframes floatRotate {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.06;
+  }
+  20% {
+    opacity: 0.08;
+  }
+  33% {
+    transform: translate(-25px, 25px) rotate(120deg) scale(1.05);
+  }
+  50% {
+    opacity: 0.05;
+  }
+  66% {
+    transform: translate(25px, -25px) rotate(240deg) scale(0.98);
+  }
+  85% {
+    opacity: 0.07;
+  }
+}
+
+/* ===== TOP BAR (Logo & Profile) ===== */
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  position: relative;
+  z-index: 10;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.heroCompact .topBar {
+  padding: var(--spacing-xs) var(--spacing-2xl);
+}
+
+.topBarRight {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+/* ===== CENTER CONTENT ===== */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-2xl);
+  padding: 0 var(--spacing-2xl);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.heroCompact .content {
+  flex: 1;
+  gap: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -40px;
+}
+
+/* ===== HERO TEXT ===== */
+.heroText {
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.heroTextHidden {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  margin: 0;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #0f2027 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 var(--spacing-md) 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #4a5568;
+  margin: 0;
+  line-height: 1.7;
+  font-weight: 500;
+  max-width: 600px;
+  animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.15s backwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== SEARCH BOX ===== */
+.searchBox {
+  width: 50%;
+  max-width: 850px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 100;
+}
+
+.heroCompact .searchBox {
+  max-width: 700px;
+  margin: 0 var(--spacing-2xl);
+  width: 25%;
+}
+
+/* Temporary placeholder styling */
+.searchPlaceholder {
+  background: white;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: 16px;
+  box-shadow:
+    0 8px 32px rgba(15, 32, 39, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(15, 32, 39, 0.06);
+  text-align: center;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: #2d3748;
+  animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s backwards;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer effect on hover */
+.searchPlaceholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(44, 83, 100, 0.05) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.searchPlaceholder:hover::before {
+  transform: translateX(100%);
+}
+
+.searchPlaceholder:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 48px rgba(15, 32, 39, 0.12),
+    0 4px 16px rgba(44, 83, 100, 0.08),
+    0 0 0 1px rgba(44, 83, 100, 0.12);
+}
+
+.heroCompact .searchPlaceholder {
+  position: relative;
+  top: -48px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  border-radius: 12px;
+  box-shadow:
+    0 4px 16px rgba(15, 32, 39, 0.06),
+    0 2px 4px rgba(0, 0, 0, 0.03),
+    0 0 0 1px rgba(15, 32, 39, 0.05);
+}
+
+.heroCompact .searchPlaceholder:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 450px;
+    height: 70vh;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    padding: 0 var(--spacing-md);
+  }
+
+  .heroCompact .searchBox {
+    max-width: 90%;
+  }
+
+  .searchPlaceholder {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-sm);
+  }
+
+  .hero::after {
+    width: 400px;
+    height: 400px;
+    top: -150px;
+    right: -150px;
+  }
+
+  /* Hide decorative icons on mobile for cleaner look */
+  .floatingIcon {
+    font-size: 36px;
+    opacity: 0.04;
+  }
+
+  .iconPlane {
+    top: 10%;
+    left: 5%;
+  }
+
+  .iconHotel {
+    top: 30%;
+    right: 5%;
+  }
+
+  .iconCompass {
+    bottom: 15%;
+    left: 8%;
+  }
+}
+
+/* ===== SCROLL INDICATOR ===== */
+.scrollIndicator {
+  position: absolute;
+  bottom: var(--spacing-2xl);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  z-index: 50;
+  animation: fadeInUp 1s ease-out 0.8s backwards;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.scrollIndicator:hover {
+  transform: translateX(-50%) translateY(-5px);
+}
+
+.scrollText {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.scrollArrow {
+  font-size: 28px;
+  color: var(--color-primary-mid);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* Hide scroll indicator on mobile */
+@media (max-width: 768px) {
+  .scrollIndicator {
+    bottom: var(--spacing-lg);
+  }
+
+  .scrollText {
+    font-size: 0.7rem;
+  }
+
+  .scrollArrow {
+    font-size: 24px;
+  }
+}
