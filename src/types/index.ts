@@ -13,6 +13,7 @@ export interface RegisterCredentials {
 export interface AuthResponse {
   authentication: string;
   userType: 'User' | 'Admin';
+  userId?: number; // Optional for now, may be returned by API
 }
 
 export interface User {
@@ -132,12 +133,14 @@ export interface FeaturedDeal {
 
 // Recently Visited Hotels (Based on API: GET /users/{userId}/recent-hotels)
 export interface RecentHotel {
-  hotel: string;
+  hotelId: number;
   hotelName: string;
   starRating: number;
-  visitDate: string; // Format: YYYY-MM-DDTHH:mm:ssZ
-  city: string;
+  visitDate: string; // Format: YYYY-MM-DDTHH:mm:ss
+  cityName: string;
   thumbnailUrl: string;
+  priceLowerBound: number;
+  priceUpperBound: number;
 }
 
 // Trending Destinations (Based on API: GET /destinations/trending)
