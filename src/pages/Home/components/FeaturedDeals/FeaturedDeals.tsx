@@ -4,7 +4,7 @@ import type { FeaturedDeal } from '@/types';
 import DealCard from './DealCard';
 import styles from './FeaturedDeals.module.css';
 import { MdArrowForward } from 'react-icons/md';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 export default function FeaturedDeals({ isScrolled }: { isScrolled: boolean }) {
   const {
