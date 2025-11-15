@@ -11,8 +11,9 @@ export interface RegisterCredentials {
 }
 
 export interface AuthResponse {
-  token: string;
+  authentication: string;
   userType: 'User' | 'Admin';
+  userId?: number; // Optional for now, may be returned by API
 }
 
 export interface User {
@@ -116,36 +117,37 @@ export interface SearchResult {
   starRating: number;
 }
 
-// Featured Deals (Based on API: GET /deals/featured)
+// Featured Deals (Based on API: GET /home/featured-deals)
 export interface FeaturedDeal {
-  originalPrice: number;
+  hotelId: number;
+  originalRoomPrice: number;
   discount: number;
   finalPrice: number;
-  city: string;
-  hotel: string;
-  hotelName: string;
-  starRating: number;
   cityName: string;
+  hotelName: string;
+  hotelStarRating: number;
   title: string;
   description: string;
-  imageUrl: string;
+  roomPhotoUrl: string;
 }
 
 // Recently Visited Hotels (Based on API: GET /users/{userId}/recent-hotels)
 export interface RecentHotel {
-  hotel: string;
+  hotelId: number;
   hotelName: string;
   starRating: number;
-  visitDate: string; // Format: YYYY-MM-DDTHH:mm:ssZ
-  city: string;
+  visitDate: string; // Format: YYYY-MM-DDTHH:mm:ss
+  cityName: string;
   thumbnailUrl: string;
+  priceLowerBound: number;
+  priceUpperBound: number;
 }
 
-// Trending Destinations (Based on API: GET /destinations/trending)
+// Trending Destinations (Based on API: GET /home/destinations/trending)
 export interface TrendingDestination {
-  city: string;
+  cityId: number;
   cityName: string;
-  country: string;
+  countryName: string;
   description: string;
   thumbnailUrl: string;
 }
