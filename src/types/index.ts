@@ -143,11 +143,11 @@ export interface RecentHotel {
   priceUpperBound: number;
 }
 
-// Trending Destinations (Based on API: GET /destinations/trending)
+// Trending Destinations (Based on API: GET /home/destinations/trending)
 export interface TrendingDestination {
-  city: string;
+  cityId: number;
   cityName: string;
-  country: string;
+  countryName: string;
   description: string;
   thumbnailUrl: string;
 }
