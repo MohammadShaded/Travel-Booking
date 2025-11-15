@@ -10,7 +10,7 @@ export const homeService = {
     },
 
     getTrendingDestinations: async (): Promise<TrendingDestination[]> => {
-        const response = await api.get<TrendingDestination[]>('/home/trending');
+        const response = await api.get<TrendingDestination[]>('/home/destinations/trending');
         return response.data;
     },
 };
