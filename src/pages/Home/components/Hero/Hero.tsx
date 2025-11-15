@@ -1,5 +1,5 @@
 ﻿import Logo from '@/components/common/Logo';
-import ProfileMenu from '../ProfileMenu';
+import ProfileMenu from '@/components/layout/ProfileMenu';
 import SearchBar from '../SearchBar';
 import { MdKeyboardArrowDown, MdFlight, MdHotel, MdExplore } from 'react-icons/md';
 import styles from './Hero.module.css';
