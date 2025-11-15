@@ -24,8 +24,8 @@ The platform allows users to:
 | HTTP Requests      | **Axios**                                 |
 | State Management   | **Context API / Zustand**                 |
 | Testing            | **Jest + React Testing Library**          |
-| Documentation      | **Storybook** _(bonus)_                   |
-| Code Quality       | **ESLint + Prettier**                     |
+| Documentation      | **Storybook**                   |
+| Code Quality       | **Prettier**                     |
 | Version Control    | **Git + GitHub**                          |
 
 ---

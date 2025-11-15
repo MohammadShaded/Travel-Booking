@@ -24,8 +24,15 @@ export default defineConfig({
     projects: [
       // Default project for unit tests
       {
+        plugins: [react()],
+        resolve: {
+          alias: {
+            '@': path.resolve(__dirname, './src'),
+          },
+        },
         test: {
           name: 'unit',
+          globals: true,
           environment: 'jsdom',
           setupFiles: './src/test/setup.ts',
           include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
