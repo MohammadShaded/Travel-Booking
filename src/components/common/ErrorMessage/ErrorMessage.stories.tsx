@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ErrorMessage from './ErrorMessage';
 
 const meta = {
-  title: 'Components/Common/ErrorMessage',
+  title: 'Common/ErrorMessage',
   component: ErrorMessage,
   parameters: {
     layout: 'padded',
