@@ -1,5 +1,6 @@
 .searchBar {
   width: 100%;
+  height: fit-content;
   background: white;
   border-radius: 50px;
   box-shadow: 
@@ -81,10 +82,11 @@
 
 .fieldInner {
   width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-lg);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -95,6 +97,7 @@
 
 .fieldInner:hover {
   background: var(--color-bg-lighter);
+  
 }
 
 .fieldLabel {
@@ -103,10 +106,11 @@
   color: var(--color-text-primary);
   margin-bottom: 2px;
   text-transform: capitalize;
+  width: max-content;
 }
 
 .fieldInput {
-  width: 100%;
+  width: ;
   border: none;
   outline: none;
   font-size: 14px;

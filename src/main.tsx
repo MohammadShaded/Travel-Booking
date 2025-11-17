@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
 import LoginPage from '@/pages/LoginPage';
 import Home from '@/pages/Home';
-import Hotels from '@/pages/Hotels';
+import SearchPage from '@/pages/SearchPage';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/hotels" element={<Hotels />} />
+          <Route path="/search" element={<SearchPage />} />
           {/* Add more routes here - they will automatically get the Header */}
         </Route>
       </Routes>

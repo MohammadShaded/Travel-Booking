@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Input from './Input';
 
 const meta = {
-  title: 'Components/Common/Input',
+  title: 'Common/Input',
   component: Input,
   parameters: {
     layout: 'padded',

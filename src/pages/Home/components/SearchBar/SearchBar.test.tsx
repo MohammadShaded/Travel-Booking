@@ -100,7 +100,12 @@ describe('SearchBar', () => {
 
       await user.click(searchButton);
 
-      expect(mockNavigate).toHaveBeenCalledWith('/search');
+      // Now includes query parameters for dates and guests
+      expect(mockNavigate).toHaveBeenCalled();
+      const navigateCall = mockNavigate.mock.calls[0][0] as string;
+      expect(navigateCall).toMatch(/^\/search\?/);
+      expect(navigateCall).toContain('checkInDate=');
+      expect(navigateCall).toContain('checkOutDate=');
     });
 
     it('toggles date picker when check-in is clicked', async () => {

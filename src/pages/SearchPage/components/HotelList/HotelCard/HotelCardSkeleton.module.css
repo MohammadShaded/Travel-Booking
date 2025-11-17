@@ -1,0 +1,146 @@
+.skeletonCard {
+  display: flex;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.skeletonImage {
+  width: 200px;
+  height: 160px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(102, 126, 234, 0.1) 0%,
+    rgba(118, 75, 162, 0.15) 50%,
+    rgba(102, 126, 234, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite ease-in-out;
+}
+
+.skeletonContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.75rem;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(102, 126, 234, 0.08) 0%,
+    rgba(118, 75, 162, 0.12) 50%,
+    rgba(102, 126, 234, 0.08) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite ease-in-out;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeletonHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.skeletonTitle {
+  width: 200px;
+  height: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeletonLocation {
+  width: 150px;
+  height: 1rem;
+}
+
+.skeletonRating {
+  width: 80px;
+  height: 1.25rem;
+}
+
+.skeletonRoomType {
+  width: 120px;
+  height: 1.75rem;
+  border-radius: 0.375rem;
+}
+
+.skeletonDescription {
+  width: 100%;
+  height: 0.875rem;
+}
+
+.skeletonDescription.short {
+  width: 70%;
+}
+
+.skeletonAmenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skeletonAmenity {
+  width: 80px;
+  height: 1.5rem;
+}
+
+.skeletonFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.skeletonPrice {
+  width: 120px;
+  height: 2rem;
+}
+
+.skeletonButton {
+  width: 140px;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .skeletonCard {
+    flex-direction: column;
+  }
+
+  .skeletonImage {
+    width: 100%;
+    height: 140px;
+  }
+
+  .skeletonContent {
+    padding: 0.875rem;
+  }
+
+  .skeletonFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .skeletonButton {
+    width: 100%;
+  }
+}

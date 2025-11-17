@@ -1,0 +1,22 @@
+.starFilter {
+  padding: 1.25rem 0;
+  border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+.starFilter:last-child {
+  border-bottom: none;
+}
+
+.title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #1f2937);
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.01em;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}

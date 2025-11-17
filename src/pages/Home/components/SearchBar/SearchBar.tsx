@@ -17,26 +17,40 @@ interface DateRangeSelection {
 
 interface SearchBarProps {
   isCompact?: boolean;
+  initialCity?: string;
+  initialCheckIn?: string;
+  initialCheckOut?: string;
+  initialAdults?: number;
+  initialChildren?: number;
+  initialRooms?: number;
 }
 
-export default function SearchBar({ isCompact = false }: SearchBarProps) {
-  const [searchQuery, setSearchQuery] = useState('');
+export default function SearchBar({ 
+  isCompact = false,
+  initialCity = '',
+  initialCheckIn,
+  initialCheckOut,
+  initialAdults = 2,
+  initialChildren = 0,
+  initialRooms = 1,
+}: SearchBarProps) {
+  const [searchQuery, setSearchQuery] = useState(initialCity);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showGuestsSelector, setShowGuestsSelector] = useState(false);
   const navigate = useNavigate();
     
   const [dateRange, setDateRange] = useState<DateRangeSelection[]>([
     {
-      startDate: new Date(), // Today
-      endDate: addDays(new Date(), 1), // Tomorrow
+      startDate: initialCheckIn ? new Date(initialCheckIn) : new Date(),
+      endDate: initialCheckOut ? new Date(initialCheckOut) : addDays(new Date(), 1),
       key: 'selection',
     },
   ]);
 
   const [guests, setGuests] = useState({
-    adults: 2,
-    children: 0,
-    rooms: 1,
+    adults: initialAdults,
+    children: initialChildren,
+    rooms: initialRooms,
   });
 
   const datePickerRef = useRef<HTMLDivElement>(null);
@@ -59,13 +73,20 @@ export default function SearchBar({ isCompact = false }: SearchBarProps) {
   }, []);
 
   const handleSearch = () => {
-    console.log('Search:', {
-      searchQuery,
-      checkIn: dateRange[0].startDate,
-      checkOut: dateRange[0].endDate,
-      ...guests,
-    });
-    navigate('/search');
+    const checkInDate = dateRange[0].startDate.toISOString().split('T')[0];
+    const checkOutDate = dateRange[0].endDate.toISOString().split('T')[0];
+    
+    const searchParams = new URLSearchParams();
+    
+    // Only add parameters that have values
+    if (searchQuery.trim()) searchParams.append('city', searchQuery.trim());
+    searchParams.append('checkInDate', checkInDate);
+    searchParams.append('checkOutDate', checkOutDate);
+    searchParams.append('adults', guests.adults.toString());
+    searchParams.append('children', guests.children.toString());
+    searchParams.append('numberOfRooms', guests.rooms.toString());
+    
+    navigate(`/search?${searchParams.toString()}`);
   };
 
   const handleClickSearch = () => {

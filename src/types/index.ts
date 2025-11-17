@@ -94,28 +94,47 @@ export interface BookingRequest {
   customerEmail: string;
 }
 
-// Search related types (Based on API: GET /search)
+// Search related types (Based on API: GET /home/search)
 export interface SearchParams {
-  checkInDate: string; // Format: YYYY-MM-DD
-  checkOutDate: string; // Format: YYYY-MM-DD
-  adults: number;
-  children: number;
-  rooms: number;
-  amenities?: string[];
+  checkInDate?: string; // Format: YYYY-MM-DD
+  checkOutDate?: string; // Format: YYYY-MM-DD
+  city?: string;
+  adults?: number;
+  children?: number;
+  numberOfRooms?: number;
   starRate?: number;
+  sort?: string;
 }
 
 export interface SearchResult {
+  hotelId: number;
   hotelName: string;
-  hotelLocation: string;
-  price: number;
-  roomType: string;
-  city: string;
-  roomPicture: string;
-  discount?: number;
-  amenities: string[];
   starRating: number;
+  latitude: number;
+  longitude: number;
+  roomPrice: number;
+  roomType: string;
+  cityName: string;
+  roomPhotoUrl: string;
+  discount: number;
+  amenities: Array<{
+    id: number;
+    name: string;
+    description: string;
+  }>;
 }
+
+// Filter state for Search page
+export interface FilterState {
+  minPrice: number;
+  maxPrice: number;
+  starRatings: number[];
+  amenities: string[];
+  roomTypes: string[];
+}
+
+// Sort options for search results
+export type SortOption = 'price-asc' | 'price-desc' | 'rating-desc' | 'rating-asc';
 
 // Featured Deals (Based on API: GET /home/featured-deals)
 export interface FeaturedDeal {

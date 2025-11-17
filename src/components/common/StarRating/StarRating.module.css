@@ -1,0 +1,72 @@
+.starRating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.star {
+  display: inline-block;
+  line-height: 1;
+  position: relative;
+}
+
+.star.full {
+  color: var(--color-warning, #fbbf24);
+}
+
+.star.empty {
+  color: var(--color-gray-300, #d1d5db);
+}
+
+.star.half {
+  position: relative;
+  display: inline-block;
+}
+
+.halfFill {
+  color: var(--color-warning, #fbbf24);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
+}
+
+.halfEmpty {
+  color: var(--color-gray-300, #d1d5db);
+}
+
+/* Size variants */
+.small .star {
+  font-size: 0.875rem;
+}
+
+.medium .star {
+  font-size: 1.125rem;
+}
+
+.large .star {
+  font-size: 1.5rem;
+}
+
+.ratingNumber {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #1f2937);
+}
+
+/* Small size rating number */
+.small .ratingNumber {
+  font-size: 0.75rem;
+}
+
+/* Large size rating number */
+.large .ratingNumber {
+  font-size: 1rem;
+}
