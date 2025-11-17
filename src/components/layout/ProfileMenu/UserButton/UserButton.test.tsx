@@ -94,7 +94,7 @@ describe('UserButton', () => {
       );
 
       expect(screen.getByRole('button', { name: /user/i })).toBeInTheDocument();
-      expect(screen.getByText('user')).toBeInTheDocument();
+      expect(screen.getByText('User')).toBeInTheDocument();
     });
 
     it('should show dropdown menu when profile button is clicked', async () => {
