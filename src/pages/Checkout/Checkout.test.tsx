@@ -160,7 +160,8 @@ describe('Checkout', () => {
     });
 
     // Check the first argument (booking data) - React Query passes additional context as second argument
-    const callArgs = (createBooking as any).mock.calls[0][0];
+    const mockFn = vi.mocked(createBooking);
+    const callArgs = mockFn.mock.calls[0][0];
     expect(callArgs).toMatchObject({
       customerName: 'John Doe',
       hotelName: 'Grand Plaza Hotel',
