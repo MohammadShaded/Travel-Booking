@@ -3,7 +3,9 @@ import type { Hotel, HotelGallery, Room } from '@/types';
 
 
 export const getHotelDetails = async (hotelId: string): Promise<Hotel> => {
+    console.log('Fetching hotel details for ID:', hotelId);
     const response = await api.get<Hotel>(`/hotels/${hotelId}`);
+    console.log('Hotel details response:', response.data);
     return response.data;
 };
 
