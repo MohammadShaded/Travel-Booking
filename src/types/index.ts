@@ -90,14 +90,26 @@ export interface Booking {
 }
 
 export interface BookingRequest {
-  userId: number;
-  hotelId: number;
-  roomId: number;
+  customerName: string;
+  hotelName: string;
+  roomNumber: string;
+  roomType: string;
   checkInDate: string;
   checkOutDate: string;
+  totalCost: number;
   paymentMethod: string;
+}
+
+export interface BookingConfirmation {
   customerName: string;
-  customerEmail: string;
+  hotelName: string;
+  roomNumber: string;
+  roomType: string;
+  bookingDateTime: string;
+  totalCost: number;
+  paymentMethod: string;
+  bookingStatus: string;
+  confirmationNumber: string;
 }
 
 // Search related types (Based on API: GET /home/search)
