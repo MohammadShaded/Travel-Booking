@@ -22,6 +22,14 @@ export interface HotelListProps {
    * Load more results callback
    */
   onLoadMore: () => void;
+  /**
+   * Check-in date from search
+   */
+  checkInDate?: string | null;
+  /**
+   * Check-out date from search
+   */
+  checkOutDate?: string | null;
 }
 
 const HotelList: React.FC<HotelListProps> = ({
@@ -29,6 +37,8 @@ const HotelList: React.FC<HotelListProps> = ({
   isLoading = false,
   hasMore,
   onLoadMore,
+  checkInDate,
+  checkOutDate,
 }) => {
   if (isLoading && hotels.length === 0) {
     return (
@@ -80,7 +90,9 @@ const HotelList: React.FC<HotelListProps> = ({
           price={hotel.roomPrice}
           roomType={hotel.roomType}
           discount={hotel.discount * 100}
-          amenities={hotel.amenities.map(a => a.name)}
+          amenities={hotel.amenities?.map((a) => a.name)}
+          checkInDate={checkInDate || undefined}
+          checkOutDate={checkOutDate || undefined}
         />
       ))}
     </InfiniteScroll>

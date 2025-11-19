@@ -45,6 +45,14 @@ export interface HotelCardProps {
    * List of amenities
    */
   amenities?: string[];
+  /**
+   * Check-in date
+   */
+  checkInDate?: string;
+  /**
+   * Check-out date
+   */
+  checkOutDate?: string;
 }
 
 const HotelCard: React.FC<HotelCardProps> = ({
@@ -58,6 +66,8 @@ const HotelCard: React.FC<HotelCardProps> = ({
   description,
   discount,
   amenities = [],
+  checkInDate,
+  checkOutDate,
 }) => {
   const navigate = useNavigate();
 
@@ -65,7 +75,11 @@ const HotelCard: React.FC<HotelCardProps> = ({
   const hasDiscount = discount && discount > 0;
 
   const handleViewDetails = () => {
-    navigate(`/hotel/${hotelId}`);
+    const params = new URLSearchParams();
+    if (checkInDate) params.set('checkIn', checkInDate);
+    if (checkOutDate) params.set('checkOut', checkOutDate);
+    const queryString = params.toString();
+    navigate(`/hotel/${hotelId}${queryString ? `?${queryString}` : ''}`);
   };
 
   return (

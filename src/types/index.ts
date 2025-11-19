@@ -34,15 +34,19 @@ export interface City {
 
 // Hotel related types (Based on API: GET /hotels/{hotelId})
 export interface Hotel {
-  id: number;
-  name: string;
+  hotelName: string;
   location: string;
   description: string;
+  latitude: number;
+  longitude: number;
+  amenities: Array<{
+    name: string;
+    description: string;
+  }>;
   starRating: number;
-  amenities: string[];
+  availableRooms: number;
   imageUrl: string;
-  numberOfAvailableRooms: number;
-  cityId?: number;
+  cityId: number;
 }
 
 // Amenity types (Based on API: GET /Amenities)
@@ -53,16 +57,18 @@ export interface Amenity {
 
 // Room types (Based on API: GET /hotels/{hotelId}/rooms)
 export interface Room {
-  id: number;
-  roomNumber: string;
-  roomImageUrl: string;
+  roomId: number;
+  roomNumber: number;
+  roomPhotoUrl: string;
   roomType: string;
-  capacityAdults: number;
-  capacityChildren: number;
-  roomAmenities: string[];
+  capacityOfAdults: number;
+  capacityOfChildren: number;
+  roomAmenities: Array<{
+    name: string;
+    description: string;
+  }>;
   price: number;
   availability: boolean;
-  hotelId?: number;
 }
 
 // Room Type (Based on API: GET /room-types)
@@ -172,7 +178,12 @@ export interface TrendingDestination {
 }
 
 // Hotel Gallery (Based on API: GET /hotels/{hotelId}/gallery)
-export type HotelGallery = string[]; // List of Image URLs
+export interface HotelGalleryImage {
+  id: number;
+  url: string;
+}
+
+export type HotelGallery = HotelGalleryImage[];
 
 // Admin Related Types
 export interface AdminSearchParams {

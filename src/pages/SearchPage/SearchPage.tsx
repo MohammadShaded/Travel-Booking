@@ -173,7 +173,14 @@ const SearchPage: React.FC = () => {
               <SortDropdown value={sortBy} onChange={handleSortChange} />
             </div>
           </div>
-          <HotelList hotels={hotels} isLoading={isLoading} hasMore={false} onLoadMore={() => {}} />
+          <HotelList
+            hotels={hotels}
+            isLoading={isLoading}
+            hasMore={false}
+            onLoadMore={() => {}}
+            checkInDate={searchInfo.checkInDate}
+            checkOutDate={searchInfo.checkOutDate}
+          />
         </main>
       </div>
     </div>

@@ -27,7 +27,9 @@ export default function RecentlyVisited() {
   }
 
   const handleHotelClick = (hotelId: number) => {
-    navigate(`/hotels/${hotelId}`);
+    const DateNow = new Date();
+
+    navigate(`/hotel/${hotelId}?checkIn=${DateNow.toISOString().split('T')[0]}&checkOut=${new Date(DateNow.getTime() + 86400000).toISOString().split('T')[0]}`);
   };
 
   if (loading) {
@@ -83,7 +85,7 @@ export default function RecentlyVisited() {
             <HotelCard 
               key={hotel.hotelId} 
               hotel={hotel} 
-              onClick={handleHotelClick} 
+              onClick={() => handleHotelClick(hotel.hotelId)} 
             />
           ))}
         </div>

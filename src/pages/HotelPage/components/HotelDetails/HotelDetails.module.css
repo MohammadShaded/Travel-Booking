@@ -1,0 +1,16 @@
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+    background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.roomList{
+    width: 20%;
+}

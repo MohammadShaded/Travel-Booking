@@ -16,8 +16,8 @@ export default function TrendingDestinations() {
     error,
   } = useFetchData<TrendingDestination[]>(homeService.getTrendingDestinations);
 
-  const handleDestinationClick = (cityId: number) => {
-    navigate(`/search?cityId=${cityId}`);
+  const handleDestinationClick = (cityName: string) => {
+    navigate(`/search?city=${cityName}`);
   };
 
   if (loading) {
@@ -72,7 +72,7 @@ export default function TrendingDestinations() {
             <DestinationCard
               key={destination.cityId}
               destination={destination}
-              onClick={handleDestinationClick}
+              onClick={() => handleDestinationClick(destination.cityName)}
             />
           ))}
         </div>
