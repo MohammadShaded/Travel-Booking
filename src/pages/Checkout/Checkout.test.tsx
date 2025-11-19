@@ -100,12 +100,11 @@ describe('Checkout', () => {
 
     const nameInput = screen.getByPlaceholderText('Enter your full name');
     const emailInput = screen.getByPlaceholderText('your.email@example.com');
-    const phoneInput = screen.getByPlaceholderText('+1 (555) 123-4567');
+    const phoneInput = screen.getByPlaceholderText('+970 59 123-4567');
 
     fireEvent.change(nameInput, { target: { value: 'John Doe' } });
     fireEvent.change(emailInput, { target: { value: 'invalid-email' } });
-    fireEvent.change(phoneInput, { target: { value: '+1234567890' } });
-
+    fireEvent.change(phoneInput, { target: { value: '+970 59 123-4567' } });
     const nextButton = screen.getByRole('button', { name: /next/i });
     fireEvent.click(nextButton);
 
@@ -121,11 +120,11 @@ describe('Checkout', () => {
     // Step 1: Fill personal details
     const nameInput = screen.getByPlaceholderText('Enter your full name');
     const emailInput = screen.getByPlaceholderText('your.email@example.com');
-    const phoneInput = screen.getByPlaceholderText('+1 (555) 123-4567');
+    const phoneInput = screen.getByPlaceholderText('+970 59 123-4567');
 
     fireEvent.change(nameInput, { target: { value: 'John Doe' } });
     fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
-    fireEvent.change(phoneInput, { target: { value: '+1234567890' } });
+    fireEvent.change(phoneInput, { target: { value: '+970591234567' } });
 
     // Go to step 2
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
@@ -179,11 +178,11 @@ describe('Checkout', () => {
     // Step 1
     const nameInput = screen.getByPlaceholderText('Enter your full name');
     const emailInput = screen.getByPlaceholderText('your.email@example.com');
-    const phoneInput = screen.getByPlaceholderText('+1 (555) 123-4567');
+    const phoneInput = screen.getByPlaceholderText('+970 59 123-4567');
 
     fireEvent.change(nameInput, { target: { value: 'John Doe' } });
     fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
-    fireEvent.change(phoneInput, { target: { value: '+1234567890' } });
+    fireEvent.change(phoneInput, { target: { value: '+970591234567' } });
 
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
@@ -220,7 +219,7 @@ describe('Checkout', () => {
     // Fill step 1 and go to step 2
     fireEvent.change(screen.getByPlaceholderText('Enter your full name'), { target: { value: 'John Doe' } });
     fireEvent.change(screen.getByPlaceholderText('your.email@example.com'), { target: { value: 'john@example.com' } });
-    fireEvent.change(screen.getByPlaceholderText('+1 (555) 123-4567'), { target: { value: '+1234567890' } });
+    fireEvent.change(screen.getByPlaceholderText('+970 59 123-4567'), { target: { value: '+970591234567' } });
 
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
@@ -241,7 +240,7 @@ describe('Checkout', () => {
     // Navigate to step 3
     fireEvent.change(screen.getByPlaceholderText('Enter your full name'), { target: { value: 'John Doe' } });
     fireEvent.change(screen.getByPlaceholderText('your.email@example.com'), { target: { value: 'john@example.com' } });
-    fireEvent.change(screen.getByPlaceholderText('+970 59 123-4567'), { target: { value: '+1234567890' } });
+    fireEvent.change(screen.getByPlaceholderText('+970 59 123-4567'), { target: { value: '+970591234567' } });
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
     await waitFor(() => {
@@ -263,7 +262,7 @@ describe('Checkout', () => {
     // Navigate to step 3
     fireEvent.change(screen.getByPlaceholderText('Enter your full name'), { target: { value: 'John Doe' } });
     fireEvent.change(screen.getByPlaceholderText('your.email@example.com'), { target: { value: 'john@example.com' } });
-    fireEvent.change(screen.getByPlaceholderText('+1 (555) 123-4567'), { target: { value: '+1234567890' } });
+    fireEvent.change(screen.getByPlaceholderText('+970 59 123-4567'), { target: { value: '+970591234567' } });
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
     await waitFor(() => {
@@ -285,7 +284,7 @@ describe('Checkout', () => {
     // Navigate through all steps
     fireEvent.change(screen.getByPlaceholderText('Enter your full name'), { target: { value: 'John Doe' } });
     fireEvent.change(screen.getByPlaceholderText('your.email@example.com'), { target: { value: 'john@example.com' } });
-    fireEvent.change(screen.getByPlaceholderText('+1 (555) 123-4567'), { target: { value: '+1234567890' } });
+    fireEvent.change(screen.getByPlaceholderText('+970 59 123-4567'), { target: { value: '+970591234567' } });
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
 
     await waitFor(() => {
