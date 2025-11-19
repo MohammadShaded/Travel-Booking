@@ -119,3 +119,9 @@
     padding: 0 var(--spacing-md);
   }
 }
+
+@media print {
+  .header {
+    display: none !important;
+  }
+}
