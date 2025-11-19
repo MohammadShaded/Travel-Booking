@@ -4,32 +4,10 @@ export interface LoginCredentials {
   password: string;
 }
 
-export interface RegisterCredentials {
-  username: string;
-  password: string;
-  name: string;
-}
-
 export interface AuthResponse {
   authentication: string;
   userType: 'User' | 'Admin';
   userId?: number; // Optional for now, may be returned by API
-}
-
-export interface User {
-  id: number;
-  username: string;
-  name: string;
-  role: 'User' | 'Admin';
-}
-
-// City related types (Based on API: GET /cities)
-export interface City {
-  id: number;
-  name: string;
-  country: string;
-  description?: string;
-  thumbnailUrl?: string;
 }
 
 // Hotel related types (Based on API: GET /hotels/{hotelId})
@@ -71,24 +49,6 @@ export interface Room {
   availability: boolean;
 }
 
-// Room Type (Based on API: GET /room-types)
-export interface RoomType {
-  id: number;
-  name: string;
-}
-
-// Booking types (Based on API: POST /booking, GET /booking/{bookingId})
-export interface Booking {
-  id: number;
-  userId: number;
-  hotelId: number;
-  roomId: number;
-  checkInDate: string; // Format: YYYY-MM-DD
-  checkOutDate: string; // Format: YYYY-MM-DD
-  totalPrice: number;
-  status: 'pending' | 'confirmed' | 'cancelled';
-}
-
 export interface BookingRequest {
   customerName: string;
   hotelName: string;
@@ -110,6 +70,23 @@ export interface BookingConfirmation {
   paymentMethod: string;
   bookingStatus: string;
   confirmationNumber: string;
+}
+
+export interface CheckoutLocationState {
+  hotelName: string;
+  roomType: string;
+  roomNumber: string;
+  checkInDate: string;
+  checkOutDate: string;
+  totalCost: number;
+}
+
+export interface CheckoutFormData {
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  paymentMethod: string;
+  specialRequests?: string;
 }
 
 // Search related types (Based on API: GET /home/search)
@@ -194,37 +171,4 @@ export interface HotelGalleryImage {
   id: number;
   url: string;
 }
-
 export type HotelGallery = HotelGalleryImage[];
-
-// Admin Related Types
-export interface AdminSearchParams {
-  [key: string]: string | number | undefined;
-}
-
-export interface CityRequest {
-  name: string;
-  country: string;
-  description?: string;
-}
-
-export interface HotelRequest {
-  name: string;
-  cityId: number;
-  location: string;
-  description: string;
-  starRating: number;
-  amenities: string[];
-  imageUrl: string;
-}
-
-export interface RoomRequest {
-  roomNumber: string;
-  hotelId: number;
-  roomType: string;
-  capacityAdults: number;
-  capacityChildren: number;
-  roomAmenities: string[];
-  price: number;
-  availability: boolean;
-}
