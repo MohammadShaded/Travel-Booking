@@ -23,16 +23,10 @@ export default function Header() {
             Home
           </Link>
           <Link 
-            to="/hotels" 
-            className={`${styles.navLink} ${isActive('/hotels') ? styles.active : ''}`}
+            to="/search" 
+            className={`${styles.navLink} ${isActive('/search') ? styles.active : ''}`}
           >
             Hotels
-          </Link>
-          <Link 
-            to="/my-bookings" 
-            className={`${styles.navLink} ${isActive('/my-bookings') ? styles.active : ''}`}
-          >
-            My Bookings
           </Link>
         </nav>
 
