@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '@/store/useAuthStore';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import BrandSection from './components/BrandSection';
@@ -8,6 +8,7 @@ import styles from './LoginPage.module.css';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Extract actions and state from store (each selector separately to avoid re-renders)
   const login = useAuthStore((state) => state.login);
@@ -19,9 +20,18 @@ export default function LoginPage() {
     clearError();
     try {
       await login(values);
-      // Redirect based on user type
+      
+      // Get the page they were trying to access before being redirected to login
+      const from = (location.state as { from?: { pathname: string } })?.from?.pathname || '/';
+      
+      // Redirect based on user type, or back to where they came from
       const userType = useAuthStore.getState().userType;
-      navigate(userType === 'Admin' ? '/admin' : '/');
+      if (userType === 'Admin') {
+        navigate('/admin');
+      } else {
+        // For regular users, go back to the page they were trying to access
+        navigate(from, { replace: true });
+      }
     } catch {
       // Error is already set in the store by login()
     }

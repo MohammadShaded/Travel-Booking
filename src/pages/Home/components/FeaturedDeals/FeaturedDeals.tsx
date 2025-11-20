@@ -3,7 +3,6 @@ import { useFetchData } from '@/hooks/useFetchData';
 import type { FeaturedDeal } from '@/types';
 import DealCard from './DealCard';
 import styles from './FeaturedDeals.module.css';
-import { MdArrowForward } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 export default function FeaturedDeals({ isScrolled }: { isScrolled: boolean }) {
@@ -15,7 +14,7 @@ export default function FeaturedDeals({ isScrolled }: { isScrolled: boolean }) {
   const navigate = useNavigate();
 
   const handleDealClick = (hotelId: number) => {
-    navigate(`/hotels/${hotelId}`);
+    navigate(`/hotel/${hotelId}`);
   };
 
   if (loading) {
@@ -54,10 +53,7 @@ export default function FeaturedDeals({ isScrolled }: { isScrolled: boolean }) {
             <h2 className={styles.title}>Featured Deals</h2>
             <p className={styles.subtitle}>Exclusive offers you won't want to miss</p>
           </div>
-          <button className={styles.viewAllButton}>
-            View All Deals
-            <MdArrowForward />
-          </button>
+
         </div>
 
         <div className={styles.dealsGrid}>

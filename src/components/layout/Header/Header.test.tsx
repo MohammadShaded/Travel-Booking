@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 import Header from './Header';
 
@@ -27,7 +27,6 @@ describe('Header', () => {
 
     expect(screen.getByText('Home')).toBeInTheDocument();
     expect(screen.getByText('Hotels')).toBeInTheDocument();
-    expect(screen.getByText('My Bookings')).toBeInTheDocument();
   });
 
   it('renders ProfileMenu component', () => {
@@ -42,7 +41,7 @@ describe('Header', () => {
 
   it('highlights active link on Hotels page', () => {
     render(
-      <MemoryRouter initialEntries={['/hotels']}>
+      <MemoryRouter initialEntries={['/search']}>
         <Header />
       </MemoryRouter>,
     );
@@ -50,16 +49,7 @@ describe('Header', () => {
     const hotelsLink = screen.getByText('Hotels').closest('a');
     expect(hotelsLink?.className).toContain('active');
   });
-  it('highlights active link on My Bookings page', () => {
-    render(
-      <MemoryRouter initialEntries={['/my-bookings']}>
-        <Header />
-      </MemoryRouter>,
-    );
 
-    const bookingsLink = screen.getByText('My Bookings').closest('a');
-    expect(bookingsLink?.className).toContain('active');
-  });
   it('has sticky positioning class', () => {
     const { container } = render(
       <MemoryRouter>

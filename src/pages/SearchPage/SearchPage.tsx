@@ -50,8 +50,7 @@ const SearchPage: React.FC = () => {
 
         setAllHotels(results);
         setHotels(results);
-      } catch (error) {
-        console.error('Failed to fetch hotels:', error);
+      } catch  {
         setAllHotels([]);
         setHotels([]);
       } finally {
