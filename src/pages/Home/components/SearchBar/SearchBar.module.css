@@ -110,7 +110,6 @@
 }
 
 .fieldInput {
-  width: ;
   border: none;
   outline: none;
   font-size: 14px;
@@ -152,6 +151,7 @@
   font-size: var(--font-size-base);
   flex-shrink: 0;
   margin-left: var(--spacing-xs);
+  height: fit-content;
 }
 
 .searchButton:hover {
