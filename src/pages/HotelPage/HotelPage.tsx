@@ -54,7 +54,6 @@ const HotelPage: React.FC = () => {
     const selectedRoom = rooms?.find((room) => room.roomId === roomId);
     
     if (!selectedRoom || !hotel) {
-      console.error('Room or hotel not found');
       return;
     }
 

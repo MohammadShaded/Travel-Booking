@@ -23,7 +23,6 @@ export function useFetchData<T>(
             const result = await fetchFn();
             setData(result);
         } catch (err) {
-            console.error('Error fetching data:', err);
             const errorMessage = err instanceof Error ? err.message : 'Failed to load data';
             setError(errorMessage);
         } finally {

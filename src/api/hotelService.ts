@@ -3,9 +3,7 @@ import type { Hotel, HotelGallery, Room } from '@/types';
 
 
 export const getHotelDetails = async (hotelId: string): Promise<Hotel> => {
-    console.log('Fetching hotel details for ID:', hotelId);
     const response = await api.get<Hotel>(`/hotels/${hotelId}`);
-    console.log('Hotel details response:', response.data);
     return response.data;
 };
 
@@ -15,8 +13,7 @@ export const getHotelGallery = async (hotelId: string): Promise<string[]> => {
         const response = await api.get<HotelGallery>(`/hotels/${hotelId}/gallery`);
         // Transform the response to extract just the URLs
         return response.data.map(item => item.url);
-    } catch (error) {
-        console.warn('Gallery API failed, using mock images:', error);
+    } catch  {
         // Fallback mock images when API fails
         return [
             'https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&w=800&q=80',
