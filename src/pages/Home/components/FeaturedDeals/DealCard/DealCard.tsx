@@ -57,7 +57,7 @@ export default function DealCard({ deal, onClick }: DealCardProps) {
             </div>
           </div>
           <button className={styles.bookButton}>
-            Book Now
+            View Details
           </button>
         </div>
       </div>
