@@ -9,27 +9,24 @@ import { useNavigate } from 'react-router-dom';
 
 export default function RecentlyVisited() {
   const navigate = useNavigate();
-  const token = useAuthStore((state) => state.token);
   const userId = useAuthStore((state) => state.userId);
-  const isLoggedIn = !!token;
-  // Only fetch if user is logged in
+  
+  // Fetch recent hotels - user is always logged in at this point
   const {
     data: recentHotels,
     loading,
     error,
   } = useFetchData<RecentHotel[]>(
-    () => (isLoggedIn ? userService.getRecentHotels(userId ? userId : 2) : Promise.resolve([])),
+    () => userService.getRecentHotels(userId ? userId : 2),
     [userId],
   );
-  // Don't render anything if user is not logged in
-  if (!isLoggedIn) {
-    return null;
-  }
 
   const handleHotelClick = (hotelId: number) => {
     const DateNow = new Date();
 
-    navigate(`/hotel/${hotelId}?checkIn=${DateNow.toISOString().split('T')[0]}&checkOut=${new Date(DateNow.getTime() + 86400000).toISOString().split('T')[0]}`);
+    navigate(
+      `/hotel/${hotelId}?checkIn=${DateNow.toISOString().split('T')[0]}&checkOut=${new Date(DateNow.getTime() + 86400000).toISOString().split('T')[0]}`,
+    );
   };
 
   if (loading) {
@@ -50,22 +47,10 @@ export default function RecentlyVisited() {
     );
   }
 
-  if (error) {
-    return (
-      <section className={styles.recentlyVisited}>
-        <div className={styles.container}>
-          <div className={styles.header}>
-            <MdHistory className={styles.headerIcon} />
-            <h2 className={styles.title}>Recently Visited</h2>
-          </div>
-          <p className={styles.error}>{error}</p>
-        </div>
-      </section>
-    );
-  }
+
 
   // Don't render if no recent hotels
-  if (!recentHotels || recentHotels.length === 0) {
+  if (error || !recentHotels || recentHotels.length === 0) {
     return null;
   }
 
@@ -82,10 +67,10 @@ export default function RecentlyVisited() {
 
         <div className={styles.hotelsGrid}>
           {recentHotels.map((hotel) => (
-            <HotelCard 
-              key={hotel.hotelId} 
-              hotel={hotel} 
-              onClick={() => handleHotelClick(hotel.hotelId)} 
+            <HotelCard
+              key={hotel.hotelId}
+              hotel={hotel}
+              onClick={() => handleHotelClick(hotel.hotelId)}
             />
           ))}
         </div>
