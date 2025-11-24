@@ -17,10 +17,7 @@ export interface Hotel {
   description: string;
   latitude: number;
   longitude: number;
-  amenities: Array<{
-    name: string;
-    description: string;
-  }>;
+  amenities: Amenity[];
   starRating: number;
   availableRooms: number;
   imageUrl: string;
@@ -33,6 +30,10 @@ export interface Amenity {
   description: string;
 }
 
+export interface AmenityWithId extends Amenity {
+  id: number;
+}
+
 // Room types (Based on API: GET /hotels/{hotelId}/rooms)
 export interface Room {
   roomId: number;
@@ -41,10 +42,7 @@ export interface Room {
   roomType: string;
   capacityOfAdults: number;
   capacityOfChildren: number;
-  roomAmenities: Array<{
-    name: string;
-    description: string;
-  }>;
+  amenities: Amenity[];
   price: number;
   availability: boolean;
 }
@@ -112,11 +110,7 @@ export interface SearchResult {
   cityName: string;
   roomPhotoUrl: string;
   discount: number;
-  amenities: Array<{
-    id: number;
-    name: string;
-    description: string;
-  }>;
+  amenities: AmenityWithId[];
 }
 
 // Filter state for Search page
@@ -172,3 +166,166 @@ export interface HotelGalleryImage {
   url: string;
 }
 export type HotelGallery = HotelGalleryImage[];
+
+
+export type EntityType = 'cities' | 'hotels' | 'rooms';
+  
+export interface City {
+  id: number;
+  name: string;
+  description: string;
+  country: string;
+  postOffice: string;
+  numberOfHotels: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateCityRequest {
+  name: string;
+  description: string;
+  country: string;
+  postOffice: string;
+}
+
+export interface UpdateCityRequest {
+  name: string;
+  description: string;
+  country: string;
+  postOffice: string;
+}
+
+// Admin Hotel (Extended version for admin grid)
+export interface AdminHotel {
+  id: number;
+  hotelName: string;
+  location: string;
+  description: string;
+  hotelType: string;
+  starRating: number;
+  latitude: number;
+  longitude: number;
+  rooms: Array<{
+    id: number;
+    name: string;
+    type: string;
+    price: number;
+    available: boolean;
+    maxOccupancy: number;
+  }>;
+  imageUrl: string;
+  availableRooms: number;
+  cityId: number;
+  amenities: AmenityWithId[];
+  owner: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateHotelRequest {
+  hotelName: string;
+  location: string;
+  description: string;
+  hotelType: string;
+  starRating: number;
+  latitude: number;
+  longitude: number;
+  imageUrl: string;
+  availableRooms: number;
+  rooms: Array<unknown>;
+  owner: string;
+}
+
+export interface UpdateHotelRequest {
+  hotelName: string;
+  location: string;
+  description: string;
+  starRating: number;
+  availableRooms: number;
+  owner: string;
+}
+
+// Admin Room (same as user-facing Room but amenities have IDs)
+export interface AdminRoom extends Omit<Room, 'amenities'> {
+  amenities: AmenityWithId[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateRoomRequest {
+  roomNumber: number;
+  roomPhotoUrl: string;
+  roomType: string;
+  capacityOfAdults: number;
+  capacityOfChildren: number;
+  amenities: AmenityWithId[];
+  price: number;
+  availability: boolean;
+}
+
+export interface UpdateRoomRequest {
+  roomNumber: number;
+  roomType: string;
+  price: number;
+  availability: boolean;
+}
+
+// Room Type
+export interface RoomType {
+  id: number;
+  name: string;
+}
+
+// Admin Search Result (Union type for global search across entities)
+export type AdminSearchResultItem =
+  | (City & { type: 'city' })
+  | (AdminHotel & { type: 'hotel' })
+  | (AdminRoom & { type: 'room' });
+
+export type AdminSearchResult = AdminSearchResultItem[];
+
+
+// DataGrid configuration types
+export interface ColumnConfig<T> {
+  key: keyof T | 'actions';
+  label: string;
+  render?: (item: T) => React.ReactNode;
+  className?: string;
+}
+
+export interface DataGridConfig<T> {
+  entityName: string;
+  entityNamePlural: string;
+  queryKey: string;
+  columns: ColumnConfig<T>[];
+  fetchFn: (searchQuery?: string) => Promise<T[]>;
+  deleteFn: (id: number) => Promise<T[] | void>;
+  getItemId: (item: T) => number;
+  searchPlaceholder?: string;
+}
+
+// Form configuration types
+export type FieldType = 'text' | 'number' | 'textarea' | 'select';
+
+export interface FieldConfig<T> {
+  name: keyof T;
+  label: string;
+  type: FieldType;
+  required?: boolean;
+  placeholder?: string;
+  options?: { value: string | number; label: string }[];
+  validate?: (value: string | number) => string | undefined;
+  rows?: number;
+}
+
+export interface FormConfig<T, CreateReq, UpdateReq> {
+  entityName: string;
+  queryKey: string;
+  fields: FieldConfig<T>[];
+  createFn: (data: CreateReq) => Promise<T | T[]>;
+  updateFn: (id: number, data: UpdateReq) => Promise<T | T[]>;
+  getItemId: (item: T) => number;
+  mapToCreateRequest: (formData: Partial<T>) => CreateReq;
+  mapToUpdateRequest: (formData: Partial<T>) => UpdateReq;
+  mapFromItem: (item: T) => Partial<T>;
+}
