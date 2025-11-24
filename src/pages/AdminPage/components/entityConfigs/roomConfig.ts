@@ -1,7 +1,18 @@
 import type { DataGridConfig, FormConfig } from '@/types';
 import type { AdminRoom, CreateRoomRequest, UpdateRoomRequest } from '@/types';
 import { getRooms, createRoom, updateRoom, deleteRoom } from '@/api/adminService';
+import * as yup from 'yup';
 import styles from './entityConfigs.module.css';
+
+// Room validation schema
+const roomValidationSchema = yup.object({
+    roomNumber: yup.number().required('Room Number is required').min(1, 'Must be greater than 0').integer('Must be a whole number'),
+    roomType: yup.string().required('Room Type is required').min(3, 'Room Type must be at least 3 characters'),
+    capacityOfAdults: yup.number().required('Adult Capacity is required').min(1, 'Must be at least 1').integer('Must be a whole number'),
+    capacityOfChildren: yup.number().required('Child Capacity is required').min(0, 'Must be 0 or greater').integer('Must be a whole number'),
+    price: yup.number().required('Price per Night is required').min(0, 'Must be 0 or greater'),
+    availability: yup.mixed().required('Availability is required').oneOf(['true', 'false', true, false], 'Must select an availability option'),
+});
 
 export const roomGridConfig: DataGridConfig<AdminRoom> = {
     entityName: 'Room',
@@ -26,6 +37,7 @@ export const roomGridConfig: DataGridConfig<AdminRoom> = {
 export const roomFormConfig: FormConfig<AdminRoom, CreateRoomRequest, UpdateRoomRequest> = {
     entityName: 'Room',
     queryKey: 'admin-rooms',
+    validationSchema: roomValidationSchema,
     fields: [
         { name: 'roomNumber' as keyof AdminRoom, label: 'Room Number', type: 'number', required: true, placeholder: 'Enter room number' },
         { name: 'roomType' as keyof AdminRoom, label: 'Room Type', type: 'text', required: true, placeholder: 'e.g., Deluxe, Suite' },

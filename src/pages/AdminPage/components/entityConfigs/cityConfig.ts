@@ -5,7 +5,16 @@ import type {
     UpdateCityRequest,
 } from '@/types';
 import { getCities, createCity, updateCity, deleteCity } from '@/api/adminService';
+import * as yup from 'yup';
 import styles from './entityConfigs.module.css';
+
+// City validation schema
+const cityValidationSchema = yup.object({
+    name: yup.string().required('City Name is required').min(2, 'City Name must be at least 2 characters'),
+    country: yup.string().required('Country is required').min(2, 'Country must be at least 2 characters'),
+    postOffice: yup.string().required('Post Office is required'),
+    description: yup.string().required('Description is required').min(10, 'Description must be at least 10 characters'),
+});
 
 // City DataGrid Configuration
 export const cityGridConfig: DataGridConfig<City> = {
@@ -59,6 +68,7 @@ export const cityGridConfig: DataGridConfig<City> = {
 export const cityFormConfig: FormConfig<City, CreateCityRequest, UpdateCityRequest> = {
     entityName: 'City',
     queryKey: 'admin-cities',
+    validationSchema: cityValidationSchema,
     fields: [
         {
             name: 'name' as keyof City,
