@@ -41,9 +41,7 @@ export default function UserButton() {
     navigate('/');
   };
 
-  const handleBookingsClick = () => {
-    setIsDropdownOpen(false);
-  };
+
 
   if (!isLoggedIn) {
     return (
