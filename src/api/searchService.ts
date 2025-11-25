@@ -25,6 +25,6 @@ export const searchHotels = async (params: SearchParams): Promise<SearchResult[]
 
 // note:this endpoint currently returns 500 error, using hardcoded list in components
 export const getAmenities = async (): Promise<Amenity[]> => {
-    const response = await api.get<Amenity[]>('/hotel-Amenities?pageSize=100&pageNumber=1');
+    const response = await api.get<Amenity[]>('/search-results/amenities');
     return response.data;
 };
