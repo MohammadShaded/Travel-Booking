@@ -4,13 +4,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import MainLayout from '@/components/layout/MainLayout';
 import ProtectedRoute from '@/components/common/ProtectedRoute';
-import LoginPage from '@/pages/LoginPage';
+import Login from '@/pages/Login';
 import Home from '@/pages/Home';
-import SearchPage from '@/pages/SearchPage';
-import HotelPage from '@/pages/HotelPage';
+import Search from '@/pages/Search';
+import Hotel from '@/pages/Hotel';
 import Checkout from '@/pages/Checkout';
 import Confirmation from '@/pages/Confirmation';
-import AdminPage from '@/pages/AdminPage';
+import Admin from '@/pages/Admin';
 import './index.css';
 
 const queryClient = new QueryClient();
@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <Routes>
           <Route element={<MainLayout />}>
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/login" element={<Login />} />
             <Route
               path="/"
               element={
@@ -34,7 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               path="/search"
               element={
                 <ProtectedRoute requireUser>
-                  <SearchPage />
+                  <Search />
                 </ProtectedRoute>
               }
             />
@@ -42,7 +42,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               path="/hotel/:hotelId"
               element={
                 <ProtectedRoute requireUser>
-                  <HotelPage />
+                  <Hotel />
                 </ProtectedRoute>
               }
             />
@@ -66,7 +66,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               path="/admin"
               element={
                 <ProtectedRoute requireAdmin>
-                  <AdminPage />
+                  <Admin />
                 </ProtectedRoute>
               }
             />
