@@ -314,7 +314,6 @@ export interface FieldConfig<T> {
   required?: boolean;
   placeholder?: string;
   options?: { value: string | number; label: string }[];
-  validate?: (value: string | number) => string | undefined;
   rows?: number;
 }
 
@@ -322,6 +321,7 @@ export interface FormConfig<T, CreateReq, UpdateReq> {
   entityName: string;
   queryKey: string;
   fields: FieldConfig<T>[];
+  validationSchema: unknown; // Yup schema (using unknown to avoid importing yup in types)
   createFn: (data: CreateReq) => Promise<T | T[]>;
   updateFn: (id: number, data: UpdateReq) => Promise<T | T[]>;
   getItemId: (item: T) => number;
