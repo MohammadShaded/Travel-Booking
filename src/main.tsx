@@ -10,6 +10,7 @@ import SearchPage from '@/pages/SearchPage';
 import HotelPage from '@/pages/HotelPage';
 import Checkout from '@/pages/Checkout';
 import Confirmation from '@/pages/Confirmation';
+import AdminPage from '@/pages/AdminPage';
 import './index.css';
 
 const queryClient = new QueryClient();
@@ -24,7 +25,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route
               path="/"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requireUser>
                   <Home />
                 </ProtectedRoute>
               }
@@ -32,7 +33,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route
               path="/search"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requireUser>
                   <SearchPage />
                 </ProtectedRoute>
               }
@@ -40,7 +41,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route
               path="/hotel/:hotelId"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requireUser>
                   <HotelPage />
                 </ProtectedRoute>
               }
@@ -48,7 +49,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route
               path="/checkout"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requireUser>
                   <Checkout />
                 </ProtectedRoute>
               }
@@ -56,8 +57,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route
               path="/confirmation/:bookingId"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requireUser>
                   <Confirmation />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute requireAdmin>
+                  <AdminPage />
                 </ProtectedRoute>
               }
             />
