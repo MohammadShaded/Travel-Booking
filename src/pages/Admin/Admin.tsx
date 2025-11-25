@@ -11,9 +11,9 @@ import {
   roomGridConfig,
   roomFormConfig,
 } from './components/entityConfigs';
-import styles from './AdminPage.module.css';
+import styles from './Admin.module.css';
 
-const AdminPage = () => {
+const Admin = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeEntity, setActiveEntity] = useState<EntityType>('cities');
   const [searchQuery, setSearchQuery] = useState('');
@@ -153,4 +153,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default Admin;

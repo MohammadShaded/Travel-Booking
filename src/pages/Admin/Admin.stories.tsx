@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import AdminPage from './AdminPage';
+import AdminPage from './Admin';
 
 const queryClient = new QueryClient({
   defaultOptions: {
