@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 import { FaUser, FaCreditCard, FaClipboardList } from 'react-icons/fa';
 import { createBooking } from '@/api/bookingService';
 import type { BookingRequest } from '@/types';
@@ -13,21 +15,53 @@ import Button from '@/components/common/Button';
 import styles from './Checkout.module.css';
 import type { CheckoutLocationState, CheckoutFormData } from '@/types';
 
+const checkoutValidationSchema = yup.object({
+  customerName: yup.string().required('Name is required').trim(),
+  customerEmail: yup
+    .string()
+    .required('Email is required')
+    .email('Invalid email format')
+    .trim(),
+  customerPhone: yup.string().required('Phone number is required').trim(),
+  paymentMethod: yup.string().required('Payment method is required'),
+  specialRequests: yup.string(),
+});
+
 const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const bookingData = location.state as CheckoutLocationState | undefined;
 
-  const [formData, setFormData] = useState<CheckoutFormData>({
-    customerName: '',
-    customerEmail: '',
-    customerPhone: '',
-    paymentMethod: 'creditCard',
-    specialRequests: '',
-  });
-
-  const [errors, setErrors] = useState<Partial<CheckoutFormData>>({});
   const [currentStep, setCurrentStep] = useState(1);
+
+  const formik = useFormik<CheckoutFormData>({
+    initialValues: {
+      customerName: '',
+      customerEmail: '',
+      customerPhone: '',
+      paymentMethod: 'creditCard',
+      specialRequests: '',
+    },
+    validationSchema: checkoutValidationSchema,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: (values) => {
+      if (!bookingData) return;
+
+      const bookingRequest: BookingRequest = {
+        customerName: values.customerName,
+        hotelName: bookingData.hotelName,
+        roomNumber: bookingData.roomNumber,
+        roomType: bookingData.roomType,
+        checkInDate: bookingData.checkInDate,
+        checkOutDate: bookingData.checkOutDate,
+        totalCost: bookingData.totalCost,
+        paymentMethod: values.paymentMethod,
+      };
+
+      bookingMutation.mutate(bookingRequest);
+    },
+  });
 
   const steps = [
     { number: 1, title: 'Personal Details', icon: FaUser },
@@ -53,37 +87,38 @@ const Checkout = () => {
     return null;
   }
 
-  const validateForm = (): boolean => {
-    const newErrors: Partial<CheckoutFormData> = {};
-
-    if (currentStep === 1 || currentStep === 3) {
-      if (!formData.customerName.trim()) {
-        newErrors.customerName = 'Name is required';
-      }
-
-      if (!formData.customerEmail.trim()) {
-        newErrors.customerEmail = 'Email is required';
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.customerEmail)) {
-        newErrors.customerEmail = 'Invalid email format';
-      }
-
-      if (!formData.customerPhone.trim()) {
-        newErrors.customerPhone = 'Phone number is required';
-      }
+  const validateCurrentStep = async (): Promise<boolean> => {
+    const errors = await formik.validateForm();
+    
+    // Mark relevant fields as touched based on current step
+    const touchedFields: Partial<Record<keyof CheckoutFormData, boolean>> = {};
+    
+    if (currentStep === 1) {
+      touchedFields.customerName = true;
+      touchedFields.customerEmail = true;
+      touchedFields.customerPhone = true;
+    } else if (currentStep === 2) {
+      touchedFields.paymentMethod = true;
+    } else if (currentStep === 3) {
+      // Mark all fields as touched for final review
+      touchedFields.customerName = true;
+      touchedFields.customerEmail = true;
+      touchedFields.customerPhone = true;
+      touchedFields.paymentMethod = true;
     }
-
-    if (currentStep === 2 || currentStep === 3) {
-      if (!formData.paymentMethod) {
-        newErrors.paymentMethod = 'Payment method is required';
-      }
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    
+    formik.setTouched(touchedFields as Record<keyof CheckoutFormData, boolean>);
+    
+    // Check if there are errors in the current step's fields
+    const hasErrors = Object.keys(touchedFields).some((field) => 
+      errors[field as keyof CheckoutFormData]
+    );
+    
+    return !hasErrors;
   };
 
-  const handleNext = () => {
-    if (validateForm()) {
+  const handleNext = async () => {
+    if (await validateCurrentStep()) {
       setCurrentStep((prev) => Math.min(prev + 1, 3));
     }
   };
@@ -94,25 +129,26 @@ const Checkout = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Form submission is handled by Formik
   };
 
   const handleConfirmBooking = async () => {
-    if (!validateForm()) {
-      return;
+    // Validate all fields before final submission
+    const errors = await formik.validateForm();
+    
+    // Mark all fields as touched
+    formik.setTouched({
+      customerName: true,
+      customerEmail: true,
+      customerPhone: true,
+      paymentMethod: true,
+      specialRequests: true,
+    });
+    
+    // If no errors, submit the form
+    if (Object.keys(errors).length === 0) {
+      formik.submitForm();
     }
-
-    const bookingRequest: BookingRequest = {
-      customerName: formData.customerName,
-      hotelName: bookingData.hotelName,
-      roomNumber: bookingData.roomNumber,
-      roomType: bookingData.roomType,
-      checkInDate: bookingData.checkInDate,
-      checkOutDate: bookingData.checkOutDate,
-      totalCost: bookingData.totalCost,
-      paymentMethod: formData.paymentMethod,
-    };
-
-    bookingMutation.mutate(bookingRequest);
   };
 
   const handleCancel = () => {
@@ -164,32 +200,32 @@ const Checkout = () => {
             <form onSubmit={handleSubmit} className={styles.form}>
               {currentStep === 1 && (
                 <PersonalDetailsForm
-                  formData={formData}
-                  errors={errors}
+                  formData={formik.values}
+                  errors={formik.errors}
                   onChange={(field: keyof CheckoutFormData, value: string) =>
-                    setFormData((prev) => ({ ...prev, [field]: value }))
+                    formik.setFieldValue(field, value)
                   }
                 />
               )}
 
               {currentStep === 2 && (
                 <PaymentMethodForm
-                  selectedMethod={formData.paymentMethod}
-                  error={errors.paymentMethod}
+                  selectedMethod={formik.values.paymentMethod}
+                  error={formik.errors.paymentMethod}
                   onChange={(method: string) =>
-                    setFormData((prev) => ({ ...prev, paymentMethod: method }))
+                    formik.setFieldValue('paymentMethod', method)
                   }
                 />
               )}
 
               {currentStep === 3 && (
                 <>
-                  <ReviewSection formData={formData} />
+                  <ReviewSection formData={formik.values} />
 
                   <SpecialRequestsForm
-                    value={formData.specialRequests || ''}
+                    value={formik.values.specialRequests || ''}
                     onChange={(value: string) =>
-                      setFormData((prev) => ({ ...prev, specialRequests: value }))
+                      formik.setFieldValue('specialRequests', value)
                     }
                   />
                 </>

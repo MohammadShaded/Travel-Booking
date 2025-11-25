@@ -279,6 +279,27 @@ describe('Checkout', () => {
   });
 
   it('should disable buttons while booking is in progress', async () => {
+    // Mock createBooking with delay to capture pending state
+    const { createBooking } = await import('@/api/bookingService');
+    vi.mocked(createBooking).mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({
+              customerName: 'John Doe',
+              hotelName: 'Grand Plaza Hotel',
+              roomNumber: '101',
+              roomType: 'Deluxe Suite',
+              bookingDateTime: '2025-11-28T10:30:00Z',
+              totalCost: 1200,
+              paymentMethod: 'creditCard',
+              bookingStatus: 'confirmed',
+              confirmationNumber: 'CONF-12345',
+            });
+          }, 100);
+        })
+    );
+
     renderWithRouter(<Checkout />);
 
     // Navigate through all steps
