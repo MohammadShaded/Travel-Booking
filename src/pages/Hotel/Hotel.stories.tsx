@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import HotelPage from './HotelPage';
+import Hotel from './Hotel';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -12,9 +12,9 @@ const queryClient = new QueryClient({
   },
 });
 
-const meta: Meta<typeof HotelPage> = {
-  title: 'Pages/HotelPage',
-  component: HotelPage,
+const meta: Meta<typeof Hotel> = {
+  title: 'Pages/Hotel',
+  component: Hotel,
   decorators: [
     (Story) => (
       <QueryClientProvider client={queryClient}>
@@ -33,7 +33,7 @@ const meta: Meta<typeof HotelPage> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof HotelPage>;
+type Story = StoryObj<typeof Hotel>;
 
 export const Default: Story = {
   parameters: {

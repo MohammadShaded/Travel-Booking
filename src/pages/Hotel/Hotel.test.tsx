@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import HotelPage from './HotelPage';
+import Hotel from './Hotel';
 
 // Mock child components
 vi.mock('./components/VisualGallery', () => ({
@@ -81,12 +81,12 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 describe('HotelPage', () => {
   it('renders loading state initially', () => {
-    render(<HotelPage />, { wrapper });
+    render(<Hotel />, { wrapper });
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
   });
 
   it('extracts hotel ID from URL params', () => {
-    const { container } = render(<HotelPage />, { wrapper });
+    const { container } = render(<Hotel />, { wrapper });
     expect(container).toBeInTheDocument();
   });
 });
