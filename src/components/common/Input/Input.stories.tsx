@@ -160,27 +160,29 @@ export const URLInput: Story = {
 };
 
 // Interactive example with controlled state
+const ControlledInputComponent = () => {
+  const [value, setValue] = useState('');
+  const [touched, setTouched] = useState(false);
+
+  const error = touched && value.length < 3 ? 'Must be at least 3 characters' : '';
+
+  return (
+    <Input
+      label="Username"
+      type="text"
+      placeholder="Enter username"
+      name="username"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      onBlur={() => setTouched(true)}
+      error={error}
+      touched={touched}
+    />
+  );
+};
+
 export const ControlledInput: Story = {
-  render: () => {
-    const [value, setValue] = useState('');
-    const [touched, setTouched] = useState(false);
-
-    const error = touched && value.length < 3 ? 'Must be at least 3 characters' : '';
-
-    return (
-      <Input
-        label="Username"
-        type="text"
-        placeholder="Enter username"
-        name="username"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onBlur={() => setTouched(true)}
-        error={error}
-        touched={touched}
-      />
-    );
-  },
+  render: () => <ControlledInputComponent />,
 };
 
 // Form example
