@@ -41,9 +41,7 @@ export default function UserButton() {
     navigate('/');
   };
 
-  const handleBookingsClick = () => {
-    setIsDropdownOpen(false);
-  };
+
 
   if (!isLoggedIn) {
     return (
@@ -55,10 +53,7 @@ export default function UserButton() {
 
   return (
     <div className={styles.userButton} ref={dropdownRef}>
-      <button
-        className={styles.profileButton}
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-      >
+      <button className={styles.profileButton} onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
         <div className={styles.avatarCircle}>
           <FaUser className={styles.userIcon} />
         </div>
@@ -67,10 +62,6 @@ export default function UserButton() {
 
       {isDropdownOpen && (
         <div className={styles.dropdown}>
-          <button className={styles.dropdownItem} onClick={handleBookingsClick}>
-            My Bookings
-          </button>
-          <div className={styles.dropdownDivider} />
           <button className={styles.dropdownItem} onClick={handleLogout}>
             Logout
           </button>

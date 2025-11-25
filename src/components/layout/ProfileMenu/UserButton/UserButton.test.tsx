@@ -108,7 +108,6 @@ describe('UserButton', () => {
       const profileButton = screen.getByRole('button', { name: /user/i });
       await user.click(profileButton);
 
-      expect(screen.getByRole('button', { name: /my bookings/i })).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /logout/i })).toBeInTheDocument();
     });
 
@@ -128,23 +127,6 @@ describe('UserButton', () => {
 
       // Close dropdown
       await user.click(profileButton);
-      expect(screen.queryByRole('button', { name: /logout/i })).not.toBeInTheDocument();
-    });
-
-    it('should close dropdown when My Bookings is clicked', async () => {
-      const user = userEvent.setup();
-      render(
-        <MemoryRouter>
-          <UserButton />
-        </MemoryRouter>
-      );
-
-      const profileButton = screen.getByRole('button', { name: /user/i });
-      await user.click(profileButton);
-
-      const bookingsButton = screen.getByRole('button', { name: /my bookings/i });
-      await user.click(bookingsButton);
-
       expect(screen.queryByRole('button', { name: /logout/i })).not.toBeInTheDocument();
     });
 

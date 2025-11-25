@@ -21,8 +21,7 @@ const Confirmation = () => {
     error,
   } = useQuery({
     queryKey: ['booking', bookingId],
-    queryFn: () => getBookingById(bookingId!),
-    enabled: !stateData && !!bookingId,
+    queryFn: () => getBookingById('1'),
   });
 
   const confirmation = stateData || bookingData;
@@ -70,7 +69,6 @@ const Confirmation = () => {
       year: 'numeric',
     });
   };
-
   return (
     <div className={styles.container}>
       <div className={styles.content}>

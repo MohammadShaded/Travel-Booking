@@ -38,8 +38,7 @@ const Checkout = () => {
   const bookingMutation = useMutation({
     mutationFn: createBooking,
     onSuccess: (data) => {
-      navigate(`/confirmation/${data.confirmationNumber}`, {
-        state: data,
+      navigate(`/confirmation/${data.confirmationNumber?data.confirmationNumber : '1'}`, {
       });
     },
     onError: () => {

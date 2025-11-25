@@ -116,12 +116,6 @@
   color: var(--color-primary-mid);
 }
 
-.dropdownDivider {
-  height: 1px;
-  background: var(--color-border-light);
-  margin: var(--spacing-xs) 0;
-}
-
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .userName {

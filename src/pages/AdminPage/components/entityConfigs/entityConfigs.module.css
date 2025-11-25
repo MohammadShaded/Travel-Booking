@@ -1,0 +1,45 @@
+.cityName {
+  font-weight: 600;
+  color: #111827;
+  font-size: 0.9375rem;
+}
+
+.description {
+  max-width: 500px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.hotelName {
+  font-weight: 600;
+  color: #111827;
+  font-size: 0.9375rem;
+}
+
+.starRating {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.roomNumber {
+  font-weight: 600;
+  color: #111827;
+}
+
+.available {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.notAvailable {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.price {
+  font-weight: 600;
+  color: #059669;
+}
