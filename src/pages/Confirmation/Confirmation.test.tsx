@@ -18,6 +18,10 @@ const mockBookingData: BookingConfirmation = {
   confirmationNumber: 'CONF-12345',
 };
 
+vi.mock('@/api/bookingService', () => ({
+  getBookingById: vi.fn(() => Promise.resolve(mockBookingData)),
+}));
+
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return {
@@ -53,10 +57,10 @@ describe('Confirmation', () => {
     vi.clearAllMocks();
   });
 
-  it('should render booking confirmed message', () => {
+  it('should render booking confirmed message', async () => {
     renderWithRouter(<Confirmation />);
 
-    expect(screen.getByText('Booking Confirmed!')).toBeInTheDocument();
+    expect(await screen.findByText('Booking Confirmed!')).toBeInTheDocument();
     expect(
       screen.getByText('Your reservation has been successfully confirmed')
     ).toBeInTheDocument();
