@@ -1,19 +1,19 @@
 import { useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { FaCheckCircle, FaPrint, FaFilePdf, FaHome } from 'react-icons/fa';
 import { getBookingById } from '@/api/bookingService';
-import type { BookingConfirmation } from '@/types';
+// import type { BookingConfirmation } from '@/types';
 import Button from '@/components/common/Button';
 import styles from './Confirmation.module.css';
 
 const Confirmation = () => {
   const { bookingId } = useParams<{ bookingId: string }>();
   const navigate = useNavigate();
-  const location = useLocation();
-  
+  // const location = useLocation();
+
   // Try to get confirmation data from location state first (from successful booking)
-  const stateData = location.state as BookingConfirmation | undefined;
+  // const stateData = location.state as BookingConfirmation | undefined;
 
   const {
     data: bookingData,
@@ -24,7 +24,7 @@ const Confirmation = () => {
     queryFn: () => getBookingById('1'),
   });
 
-  const confirmation = stateData || bookingData;
+  const confirmation = bookingData;
 
   useEffect(() => {
     if (!bookingId) {
@@ -78,9 +78,7 @@ const Confirmation = () => {
             <FaCheckCircle />
           </div>
           <h1 className={styles.title}>Booking Confirmed!</h1>
-          <p className={styles.subtitle}>
-            Your reservation has been successfully confirmed
-          </p>
+          <p className={styles.subtitle}>Your reservation has been successfully confirmed</p>
         </div>
 
         {/* Confirmation Card */}
@@ -120,9 +118,7 @@ const Confirmation = () => {
             </div>
             <div className={styles.detailRow}>
               <span className={styles.detailLabel}>Booking Date</span>
-              <span className={styles.detailValue}>
-                {formatDate(confirmation.bookingDateTime)}
-              </span>
+              <span className={styles.detailValue}>{formatDate(confirmation.bookingDateTime)}</span>
             </div>
           </div>
 
@@ -137,9 +133,7 @@ const Confirmation = () => {
             </div>
             <div className={styles.detailRow}>
               <span className={styles.detailLabel}>Total Amount</span>
-              <span className={styles.totalAmount}>
-                ${confirmation.totalCost.toFixed(2)}
-              </span>
+              <span className={styles.totalAmount}>${confirmation.totalCost.toFixed(2)}</span>
             </div>
             <div className={styles.detailRow}>
               <span className={styles.detailLabel}>Status</span>
