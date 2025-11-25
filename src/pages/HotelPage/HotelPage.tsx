@@ -1,10 +1,16 @@
 import React from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getHotelDetails, getHotelGallery, getAvailableRooms } from '@/api/hotelService';
+import {
+  getHotelDetails,
+  getHotelGallery,
+  getAvailableRooms,
+  getHotelReviews,
+} from '@/api/hotelService';
 import type { CheckoutLocationState } from '@/types';
 import VisualGallery from './components/VisualGallery';
 import HotelDetails from './components/HotelDetails';
+import HotelReviews from './components/HotelReviews';
 import styles from './HotelPage.module.css';
 import HotelMap from './components/HotelDetails/components/HotelMap';
 
@@ -37,7 +43,8 @@ const HotelPage: React.FC = () => {
   // Get check-in/out dates from URL params (from SearchPage navigation)
   // Format: /hotel/1?checkIn=2025-12-01&checkOut=2025-12-05
   const checkInDate = searchParams.get('checkIn') || new Date().toISOString().split('T')[0];
-  const checkOutDate = searchParams.get('checkOut') || new Date(Date.now() + 86400000).toISOString().split('T')[0];
+  const checkOutDate =
+    searchParams.get('checkOut') || new Date(Date.now() + 86400000).toISOString().split('T')[0];
 
   const {
     data: rooms,
@@ -49,10 +56,16 @@ const HotelPage: React.FC = () => {
     enabled: !!hotelId && !!checkInDate && !!checkOutDate,
   });
 
+  const { data: reviews, isLoading: isLoadingReviews } = useQuery({
+    queryKey: ['hotelReviews', hotelId],
+    queryFn: () => getHotelReviews(hotelId!),
+    enabled: !!hotelId,
+  });
+
   const handleBookRoom = (roomId: number) => {
     // Find the selected room
     const selectedRoom = rooms?.find((room) => room.roomId === roomId);
-    
+
     if (!selectedRoom || !hotel) {
       return;
     }
@@ -60,9 +73,7 @@ const HotelPage: React.FC = () => {
     // Calculate total cost
     const checkIn = new Date(checkInDate);
     const checkOut = new Date(checkOutDate);
-    const nights = Math.ceil(
-      (checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24)
-    );
+    const nights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24));
     const totalCost = selectedRoom.price * nights;
 
     // Prepare booking data
@@ -121,6 +132,7 @@ const HotelPage: React.FC = () => {
             />
           </div>
         </div>
+            <HotelReviews reviews={reviews || []} isLoading={isLoadingReviews} />
 
         <div className={styles.detailsColumn}></div>
       </div>

@@ -34,6 +34,14 @@ export interface AmenityWithId extends Amenity {
   id: number;
 }
 
+// Review types (Based on API: GET /api/bookings)
+export interface Review {
+  reviewId: number;
+  customerName: string;
+  rating: number;
+  description: string;
+}
+
 // Room types (Based on API: GET /hotels/{hotelId}/rooms)
 export interface Room {
   roomId: number;

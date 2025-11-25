@@ -89,7 +89,7 @@ const HotelList: React.FC<HotelListProps> = ({
           starRating={hotel.starRating}
           price={hotel.roomPrice}
           roomType={hotel.roomType}
-          discount={hotel.discount * 100}
+          discount={hotel.discount }
           amenities={hotel.amenities?.map((a) => a.name)}
           checkInDate={checkInDate || undefined}
           checkOutDate={checkOutDate || undefined}
