@@ -1,5 +1,5 @@
 import api from '@/api/axiosClient';
-import type { Hotel, HotelGallery, Room } from '@/types';
+import type { Hotel, HotelGallery, Room, Review } from '@/types';
 
 
 export const getHotelDetails = async (hotelId: string): Promise<Hotel> => {
@@ -35,5 +35,15 @@ export const getAvailableRooms = async (
     const response = await api.get<Room[]>(`/hotels/${hotelId}/available-rooms`, {
         params: { checkInDate, checkOutDate },
     });
+    return response.data;
+};
+
+/**
+ * Get hotel reviews
+ * GET /api/bookings
+ */
+export const getHotelReviews = async (hotelId: string): Promise<Review[]> => {
+    const response = await api.get<Review[]>(`/hotels/${hotelId}/reviews`);
+    console.log('Fetched reviews:', response.data);
     return response.data;
 };
