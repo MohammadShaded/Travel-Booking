@@ -4,9 +4,9 @@ import ErrorMessage from '@/components/common/ErrorMessage';
 import BrandSection from './components/BrandSection';
 import LoginForm from './components/LoginForm';
 import type { LoginCredentials } from '@/types';
-import styles from './LoginPage.module.css';
+import styles from './Login.module.css';
 
-export default function LoginPage() {
+export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 

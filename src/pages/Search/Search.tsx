@@ -6,7 +6,7 @@ import SortDropdown from './components/SortDropdown';
 import SearchBar from '@/pages/Home/components/SearchBar';
 import { searchHotels } from '@/api/searchService';
 import type { SearchResult, SearchParams, FilterState, SortOption } from '@/types';
-import styles from './SearchPage.module.css';
+import styles from './Search.module.css';
 
 const SearchPage: React.FC = () => {
   const [searchParams] = useSearchParams();

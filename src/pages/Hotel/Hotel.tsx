@@ -11,10 +11,10 @@ import type { CheckoutLocationState } from '@/types';
 import VisualGallery from './components/VisualGallery';
 import HotelDetails from './components/HotelDetails';
 import HotelReviews from './components/HotelReviews';
-import styles from './HotelPage.module.css';
+import styles from './Hotel.module.css';
 import HotelMap from './components/HotelDetails/components/HotelMap';
 
-const HotelPage: React.FC = () => {
+const Hotel: React.FC = () => {
   const { hotelId } = useParams<{ hotelId: string }>();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -140,4 +140,4 @@ const HotelPage: React.FC = () => {
   );
 };
 
-export default HotelPage;
+export default Hotel;

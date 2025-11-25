@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import AdminPage from './AdminPage';
+import Admin from './Admin';
 
 // Mock the API service
 vi.mock('@/api/adminService', () => ({
@@ -45,14 +45,14 @@ const renderWithProviders = (ui: React.ReactElement) => {
   );
 };
 
-describe('AdminPage', () => {
+describe('Admin', () => {
   it('renders admin panel title', () => {
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
     expect(screen.getByText('Admin Panel')).toBeInTheDocument();
   });
 
   it('renders all navigation items', () => {
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
     
     expect(screen.getByText('Manage Cities')).toBeInTheDocument();
     expect(screen.getByText('Manage Hotels')).toBeInTheDocument();
@@ -61,7 +61,7 @@ describe('AdminPage', () => {
 
   it('toggles sidebar when toggle button is clicked', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
 
     const toggleButton = screen.getByLabelText(/close sidebar/i);
     await user.click(toggleButton);
@@ -71,7 +71,7 @@ describe('AdminPage', () => {
   });
 
   it('renders cities grid by default', async () => {
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
 
     await waitFor(() => {
       expect(screen.getByText('Cities Management')).toBeInTheDocument();
@@ -80,7 +80,7 @@ describe('AdminPage', () => {
 
   it('switches to hotels when hotels nav is clicked', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
 
     const hotelsButton = screen.getByText('Manage Hotels');
     await user.click(hotelsButton);
@@ -92,7 +92,7 @@ describe('AdminPage', () => {
 
   it('switches to rooms when rooms nav is clicked', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
 
     const roomsButton = screen.getByText('Manage Rooms');
     await user.click(roomsButton);
@@ -104,7 +104,7 @@ describe('AdminPage', () => {
 
   it('clears search query when switching entities', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
 
     const searchInput = screen.getByPlaceholderText(/search cities/i);
     await user.type(searchInput, 'test query');
@@ -120,7 +120,7 @@ describe('AdminPage', () => {
 
   it('opens city form when create button is clicked', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
 
     await waitFor(() => {
       expect(screen.getByText('Cities Management')).toBeInTheDocument();
@@ -134,7 +134,7 @@ describe('AdminPage', () => {
 
   it('opens city form in edit mode when row is clicked', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
 
     await waitFor(() => {
       expect(screen.getByText('New York')).toBeInTheDocument();
@@ -151,7 +151,7 @@ describe('AdminPage', () => {
 
   it('closes form when close button is clicked', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
 
     await waitFor(() => {
       expect(screen.getByText('Cities Management')).toBeInTheDocument();
@@ -171,13 +171,13 @@ describe('AdminPage', () => {
   });
 
   it('renders search input with correct placeholder', () => {
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
     expect(screen.getByPlaceholderText(/search cities/i)).toBeInTheDocument();
   });
 
   it('updates search input value', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
 
     const searchInput = screen.getByPlaceholderText(/search cities/i);
     await user.type(searchInput, 'New York');
@@ -187,7 +187,7 @@ describe('AdminPage', () => {
 
   it('highlights active navigation item', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<AdminPage />);
+    renderWithProviders(<Admin />);
 
     const citiesButton = screen.getByText('Manage Cities').closest('button');
     expect(citiesButton?.className).toMatch(/active/);
