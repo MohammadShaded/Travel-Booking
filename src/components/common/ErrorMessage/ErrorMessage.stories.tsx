@@ -90,36 +90,51 @@ export const PermissionError: Story = {
 };
 
 // Interactive dismissible error
+const DismissibleErrorComponent = () => {
+  const [visible, setVisible] = useState(true);
+
+  if (!visible) {
+    return (
+      <button
+        onClick={() => setVisible(true)}
+        style={{
+          padding: '0.5rem 1rem',
+          background: '#007bff',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+        }}
+      >
+        Show Error Again
+      </button>
+    );
+  }
+
+  return (
+    <div style={{ maxWidth: '400px' }}>
+      <ErrorMessage message="This error can be dismissed by clicking the X button" />
+      <button
+        onClick={() => setVisible(false)}
+        style={{
+          marginTop: '1rem',
+          padding: '0.5rem 1rem',
+          background: '#dc3545',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+        }}
+      >
+        Dismiss Error
+      </button>
+    </div>
+  );
+};
+
 export const DismissibleError: Story = {
   args: { message: '' },
-  render: () => {
-    const [visible, setVisible] = useState(true);
-
-    if (!visible) {
-      return (
-        <button
-          onClick={() => setVisible(true)}
-          style={{
-            padding: '0.5rem 1rem',
-            background: '#007bff',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
-        >
-          Show Error Again
-        </button>
-      );
-    }
-
-    return (
-      <ErrorMessage
-        message="This error can be dismissed. Click the close button to hide it."
-        onClose={() => setVisible(false)}
-      />
-    );
-  },
+  render: () => <DismissibleErrorComponent />,
 };
 
 // Multiple errors example
@@ -135,70 +150,81 @@ export const MultipleErrors: Story = {
 };
 
 // Form with error example
-export const FormWithError: Story = {
-  args: { message: '' },
-  render: () => {
-    const [error, setError] = useState('');
-    const [email, setEmail] = useState('');
+const FormWithErrorComponent = () => {
+  const [error, setError] = useState('');
+  const [email, setEmail] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      if (!email.includes('@')) {
-        setError('Please enter a valid email address');
-      } else {
-        setError('');
-        alert('Form submitted successfully!');
-      }
-    };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.includes('@')) {
+      setError('Please enter a valid email address');
+    } else {
+      setError('');
+      alert('Form submitted successfully!');
+    }
+  };
 
-    return (
-      <form
-        onSubmit={handleSubmit}
-        style={{ maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '1rem' }}
-      >
-        <div>
-          <label
-            htmlFor="email"
-            style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}
-          >
-            Email
-          </label>
-          <input
-            id="email"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            style={{
-              width: '100%',
-              padding: '0.5rem',
-              border: '1px solid #ddd',
-              borderRadius: '4px',
-              fontSize: '1rem',
-            }}
-          />
-        </div>
-
-        {error && <ErrorMessage message={error} onClose={() => setError('')} />}
-
-        <button
-          type="submit"
+  return (
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        maxWidth: '400px',
+        padding: '1.5rem',
+        border: '1px solid #ddd',
+        borderRadius: '8px',
+      }}
+    >
+      <div style={{ marginBottom: '1rem' }}>
+        <label
+          htmlFor="email"
           style={{
-            padding: '0.75rem',
-            background: '#007bff',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            fontSize: '1rem',
-            cursor: 'pointer',
+            display: 'block',
+            marginBottom: '0.5rem',
             fontWeight: 500,
           }}
         >
-          Submit
-        </button>
-      </form>
-    );
-  },
+          Email Address
+        </label>
+        <input
+          id="email"
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          style={{
+            width: '100%',
+            padding: '0.5rem',
+            border: '1px solid #ddd',
+            borderRadius: '4px',
+            fontSize: '1rem',
+          }}
+        />
+        {error && (
+          <div style={{ marginTop: '0.5rem' }}>
+            <ErrorMessage message={error} />
+          </div>
+        )}
+      </div>
+      <button
+        type="submit"
+        style={{
+          padding: '0.5rem 1rem',
+          background: '#007bff',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+        }}
+      >
+        Submit
+      </button>
+    </form>
+  );
+};
+
+export const FormWithError: Story = {
+  args: { message: '' },
+  render: () => <FormWithErrorComponent />,
 };
 
 // API error responses
