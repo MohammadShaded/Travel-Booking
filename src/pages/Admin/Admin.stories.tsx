@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import AdminPage from './Admin';
+import Admin from './Admin';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -9,9 +9,9 @@ const queryClient = new QueryClient({
   },
 });
 
-const meta: Meta<typeof AdminPage> = {
-  title: 'Pages/AdminPage',
-  component: AdminPage,
+const meta: Meta<typeof Admin> = {
+  title: 'Pages/Admin',
+  component: Admin,
   decorators: [
     (Story) => (
       <QueryClientProvider client={queryClient}>
