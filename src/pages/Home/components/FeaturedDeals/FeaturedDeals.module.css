@@ -1,0 +1,117 @@
+.featuredDeals {
+  width: 100%;
+  padding: var(--spacing-xl) 0;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-2xl);
+}
+
+/* ===== HEADER ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-xs) 0;
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #0f2027 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin: 0;
+  font-weight: 500;
+}
+
+
+/* ===== DEALS GRID ===== */
+.dealsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-2xl);
+}
+
+/* ===== LOADING STATE ===== */
+.loadingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: var(--spacing-2xl);
+}
+
+.skeletonCard {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: var(--radius-xl);
+  height: 500px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ===== ERROR STATE ===== */
+.error {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  padding: var(--spacing-3xl) 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .dealsGrid,
+  .loadingGrid {
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .featuredDeals {
+    padding: var(--spacing-3xl) 0;
+  }
+
+  .container {
+    padding: 0 var(--spacing-lg);
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: var(--font-size-base);
+  }
+
+ 
+
+  .dealsGrid,
+  .loadingGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+}

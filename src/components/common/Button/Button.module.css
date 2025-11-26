@@ -1,0 +1,123 @@
+.button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  font-family: inherit;
+  letter-spacing: var(--letter-spacing-wider);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Variants */
+.primary {
+  background: var(--gradient-button);
+  color: var(--color-text-white);
+  box-shadow: var(--shadow-button-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.primary:hover::before {
+  left: 100%;
+}
+
+.primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-primary-mid) 0%, var(--color-primary-dark) 100%);
+  box-shadow: var(--shadow-button-primary-hover);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.primary:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.secondary {
+  background: var(--color-bg-light);
+  color: var(--color-text-secondary);
+  border: 2px solid var(--color-border-light);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--color-bg-lighter);
+  border-color: var(--color-border-medium);
+}
+
+.danger {
+  background: var(--gradient-danger);
+  color: var(--color-text-white);
+  box-shadow: var(--shadow-button-danger);
+}
+
+.danger:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e63950 0%, #3651db 100%);
+  box-shadow: var(--shadow-button-danger-hover);
+  transform: translateY(-2px);
+}
+
+/* Sizes */
+.small {
+  padding: 10px 20px;
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-md);
+}
+
+.medium {
+  padding: 14px 28px;
+  font-size: var(--font-size-lg);
+  border-radius: var(--radius-xl);
+}
+
+.large {
+  padding: 18px 36px;
+  font-size: var(--font-size-xl);
+  border-radius: var(--radius-2xl);
+}
+
+/* Full width */
+.fullWidth {
+  width: 100%;
+}
+
+/* Loading state */
+.loading {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--color-text-white);
+  border-radius: var(--radius-round);
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

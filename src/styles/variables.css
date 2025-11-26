@@ -19,6 +19,7 @@
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
   --gradient-button: linear-gradient(135deg, #2c5364 0%, #0f2027 100%);
+  --gradient-button-hover: linear-gradient(135deg, #2c5364 100%, #0f2027 0%);
   --gradient-danger: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
   --gradient-text: linear-gradient(135deg, #fff 0%, #00d4ff 100%);
   --gradient-background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);

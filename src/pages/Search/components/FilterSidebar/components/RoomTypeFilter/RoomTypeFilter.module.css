@@ -1,0 +1,16 @@
+.roomTypeFilter {
+  padding: 1rem 0;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #1f2937);
+  margin: 0 0 1rem 0;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

@@ -1,0 +1,127 @@
+/* ===== HEADER CONTAINER ===== */
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(15, 32, 39, 0.08);
+  border-bottom: 1px solid rgba(15, 32, 39, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.container {
+  max-width: 1400px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing-2xl);
+  gap: var(--spacing-2xl);
+}
+
+/* ===== LOGO ===== */
+.logoLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  color: inherit; /* Prevent link color from affecting Logo */
+}
+
+.logoLink:hover {
+  transform: scale(1.02);
+  color: inherit; /* Maintain original color on hover */
+}
+
+.logoLink:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.logoLink:visited {
+  color: inherit; /* Prevent visited link color */
+}
+
+.logoLink:active {
+  color: inherit; /* Prevent active link color */
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+  margin-left: var(--spacing-2xl);
+}
+
+.navLink {
+  position: relative;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  transition: all 0.2s ease;
+  border-radius: var(--radius-sm);
+}
+
+.navLink:hover {
+  color: var(--color-primary);
+  background: var(--color-background-hover);
+}
+
+.navLink:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Active link indicator */
+.navLink.active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.navLink.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: var(--spacing-sm);
+  right: var(--spacing-sm);
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-lg);
+    gap: var(--spacing-md);
+  }
+
+  .nav {
+    display: none; /* Will implement mobile menu in future */
+  }
+
+  .logoLink {
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+}
+
+@media print {
+  .header {
+    display: none !important;
+  }
+}

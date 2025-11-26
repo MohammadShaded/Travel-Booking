@@ -1,0 +1,19 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle for better visibility -->
+  <circle cx="32" cy="32" r="32" fill="#2c5364"/>
+  
+  <!-- Building -->
+  <path d="M8 24L32 8L56 24V54C56 55.0609 55.5786 56.0783 54.8284 56.8284C54.0783 57.5786 53.0609 58 52 58H12C10.9391 58 9.92172 57.5786 9.17157 56.8284C8.42143 56.0783 8 55.0609 8 54V24Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="rgba(255,255,255,0.1)"/>
+  
+  <!-- Door -->
+  <path d="M24 58V38H40V58" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Windows -->
+  <rect x="16" y="28" width="8" height="8" rx="1" fill="white" opacity="0.3"/>
+  <rect x="16" y="40" width="8" height="8" rx="1" fill="white" opacity="0.3"/>
+  <rect x="40" y="28" width="8" height="8" rx="1" fill="white" opacity="0.3"/>
+  <rect x="40" y="40" width="8" height="8" rx="1" fill="white" opacity="0.3"/>
+  
+  <!-- Star -->
+  <path d="M32 4L34 10L40 10L35 14L37 20L32 16L27 20L29 14L24 10L30 10L32 4Z" fill="white" opacity="0.8"/>
+</svg>

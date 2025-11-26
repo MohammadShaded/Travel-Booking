@@ -1,0 +1,79 @@
+.headerContainer {
+ 
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.hotelInfo {
+  flex: 1;
+}
+
+.hotelName {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  background: var(--color-primary-mid);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.ratingLocation {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.locationIcon {
+  color: #667eea;
+  font-size: 1.125rem;
+}
+
+.locationText {
+  font-size: 1rem;
+}
+
+.availability {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.availabilityText {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+@media (max-width: 768px) {
+  .headerContainer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+  
+  .hotelName {
+    font-size: 2rem;
+  }
+  
+  .availability {
+    align-items: stretch;
+  }
+}
