@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
 import { userService } from '@/api/userService';
-import { useFetchData } from '@/hooks/useFetchData';
 import { useAuthStore } from '@/store/useAuthStore';
 import type { RecentHotel } from '@/types';
 import HotelCard from './HotelCard';
@@ -11,15 +11,16 @@ export default function RecentlyVisited() {
   const navigate = useNavigate();
   const userId = useAuthStore((state) => state.userId);
   
-  // Fetch recent hotels - user is always logged in at this point
+  // Fetch recent hotels using React Query
   const {
     data: recentHotels,
-    loading,
+    isLoading: loading,
     error,
-  } = useFetchData<RecentHotel[]>(
-    () => userService.getRecentHotels(userId ? userId : 2),
-    [userId],
-  );
+  } = useQuery<RecentHotel[]>({
+    queryKey: ['recentHotels', userId],
+    queryFn: () => userService.getRecentHotels(userId ? userId : 2),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
 
   const handleHotelClick = (hotelId: number) => {
     const DateNow = new Date();
@@ -51,6 +52,7 @@ export default function RecentlyVisited() {
 
   // Don't render if no recent hotels
   if (error || !recentHotels || recentHotels.length === 0) {
+    console.log('No recent hotels or error occurred:', recentHotels, error);
     return null;
   }
 

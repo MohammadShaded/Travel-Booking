@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
 import { homeService } from '@/api/homeService';
-import { useFetchData } from '@/hooks/useFetchData';
 import type { TrendingDestination } from '@/types';
 import DestinationCard from './DestinationCard';
 import styles from './TrendingDestinations.module.css';
@@ -12,9 +12,13 @@ export default function TrendingDestinations() {
 
   const {
     data: destinations,
-    loading,
+    isLoading: loading,
     error,
-  } = useFetchData<TrendingDestination[]>(homeService.getTrendingDestinations);
+  } = useQuery<TrendingDestination[]>({
+    queryKey: ['trendingDestinations'],
+    queryFn: homeService.getTrendingDestinations,
+    staleTime: 1000 * 60 * 10, // 10 minutes
+  });
 
   const handleDestinationClick = (cityName: string) => {
     navigate(`/search?city=${cityName}`);
@@ -46,7 +50,7 @@ export default function TrendingDestinations() {
             <MdTrendingUp className={styles.headerIcon} />
             <h2 className={styles.title}>Trending Destinations</h2>
           </div>
-          <p className={styles.error}>{error}</p>
+          <p className={styles.error}>Failed to load trending destinations</p>
         </div>
       </section>
     );
