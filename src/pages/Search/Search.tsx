@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import FilterSidebar from './components/FilterSidebar';
 import HotelList from './components/HotelList';
 import SortDropdown from './components/SortDropdown';
 import SearchBar from '@/pages/Home/components/SearchBar';
 import { searchHotels } from '@/api/searchService';
-import type { SearchResult, SearchParams, FilterState, SortOption } from '@/types';
+import type { SearchParams, FilterState, SortOption } from '@/types';
 import styles from './Search.module.css';
 
 const SearchPage: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const [hotels, setHotels] = useState<SearchResult[]>([]);
-  const [allHotels, setAllHotels] = useState<SearchResult[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>('price-asc');
 
   // Initialize filters from URL params
@@ -24,45 +22,36 @@ const SearchPage: React.FC = () => {
     roomTypes: [],
   });
 
-  // Fetch hotels on mount
-  useEffect(() => {
-    const fetchHotels = async () => {
-      setIsLoading(true);
-      try {
-        const city = searchParams.get('city');
-        const checkInDate = searchParams.get('checkInDate');
-        const checkOutDate = searchParams.get('checkOutDate');
-        const adults = searchParams.get('adults');
-        const children = searchParams.get('children');
-        const numberOfRooms = searchParams.get('numberOfRooms');
+  // Build search params object
+  const searchQueryParams = useMemo(() => {
+    const city = searchParams.get('city');
+    const checkInDate = searchParams.get('checkInDate');
+    const checkOutDate = searchParams.get('checkOutDate');
+    const adults = searchParams.get('adults');
+    const children = searchParams.get('children');
+    const numberOfRooms = searchParams.get('numberOfRooms');
 
-        // Build params object only with provided values
-        const params: SearchParams = {};
+    const params: SearchParams = {};
 
-        if (city) params.city = city;
-        if (checkInDate) params.checkInDate = checkInDate;
-        if (checkOutDate) params.checkOutDate = checkOutDate;
-        if (adults) params.adults = Number(adults);
-        if (children) params.children = Number(children);
-        if (numberOfRooms) params.numberOfRooms = Number(numberOfRooms);
+    if (city) params.city = city;
+    if (checkInDate) params.checkInDate = checkInDate;
+    if (checkOutDate) params.checkOutDate = checkOutDate;
+    if (adults) params.adults = Number(adults);
+    if (children) params.children = Number(children);
+    if (numberOfRooms) params.numberOfRooms = Number(numberOfRooms);
 
-        const results = await searchHotels(params);
-
-        setAllHotels(results);
-        setHotels(results);
-      } catch  {
-        setAllHotels([]);
-        setHotels([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchHotels();
+    return params;
   }, [searchParams]);
 
-  // Apply filters and sort locally
-  useEffect(() => {
+  // Fetch hotels using React Query
+  const { data: allHotels = [], isLoading } = useQuery({
+    queryKey: ['searchHotels', searchQueryParams],
+    queryFn: () => searchHotels(searchQueryParams),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+
+  // Apply filters and sort locally using useMemo
+  const hotels = useMemo(() => {
     let filtered = [...allHotels];
 
     // Apply price filter
@@ -97,25 +86,24 @@ const SearchPage: React.FC = () => {
       );
     }
 
-    setHotels(sortResults(filtered, sortBy));
-  }, [filters, sortBy, allHotels]);
-
-  const sortResults = (results: SearchResult[], sortOption: SortOption): SearchResult[] => {
-    const sorted = [...results];
-
-    switch (sortOption) {
+    // Apply sorting
+    switch (sortBy) {
       case 'price-asc':
-        return sorted.sort((a, b) => a.roomPrice - b.roomPrice);
+        filtered.sort((a, b) => a.roomPrice - b.roomPrice);
+        break;
       case 'price-desc':
-        return sorted.sort((a, b) => b.roomPrice - a.roomPrice);
+        filtered.sort((a, b) => b.roomPrice - a.roomPrice);
+        break;
       case 'rating-desc':
-        return sorted.sort((a, b) => b.starRating - a.starRating);
+        filtered.sort((a, b) => b.starRating - a.starRating);
+        break;
       case 'rating-asc':
-        return sorted.sort((a, b) => a.starRating - b.starRating);
-      default:
-        return sorted;
+        filtered.sort((a, b) => a.starRating - b.starRating);
+        break;
     }
-  };
+
+    return filtered;
+  }, [filters, sortBy, allHotels]);
 
   const handleFilterChange = (newFilters: FilterState) => {
     setFilters(newFilters);
