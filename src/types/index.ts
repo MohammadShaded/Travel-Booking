@@ -50,7 +50,7 @@ export interface Room {
   roomType: string;
   capacityOfAdults: number;
   capacityOfChildren: number;
-  amenities: Amenity[];
+  roomAmenities: Amenity[];
   price: number;
   availability: boolean;
 }

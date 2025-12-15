@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
 import { homeService } from '@/api/homeService';
-import { useFetchData } from '@/hooks/useFetchData';
 import type { FeaturedDeal } from '@/types';
 import DealCard from './DealCard';
 import styles from './FeaturedDeals.module.css';
@@ -8,9 +8,13 @@ import { useNavigate } from 'react-router-dom';
 export default function FeaturedDeals({ isScrolled }: { isScrolled: boolean }) {
   const {
     data: deals,
-    loading,
+    isLoading: loading,
     error,
-  } = useFetchData<FeaturedDeal[]>(homeService.getFeaturedDeals);
+  } = useQuery<FeaturedDeal[]>({
+    queryKey: ['featuredDeals'],
+    queryFn: homeService.getFeaturedDeals,
+    staleTime: 1000 * 60 * 10, // 10 minutes
+  });
   const navigate = useNavigate();
 
   const handleDealClick = (hotelId: number) => {
@@ -39,7 +43,7 @@ export default function FeaturedDeals({ isScrolled }: { isScrolled: boolean }) {
       <section className={styles.featuredDeals}>
         <div className={styles.container}>
           <h2 className={styles.title}>Featured Deals</h2>
-          <p className={styles.error}>{error}</p>
+          <p className={styles.error}>Failed to load featured deals</p>
         </div>
       </section>
     );

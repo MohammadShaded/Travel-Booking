@@ -1,6 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { BrowserRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Home from './Home';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
 
 const meta = {
   title: 'Pages/Home',
@@ -16,9 +26,11 @@ const meta = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Story />
+        </BrowserRouter>
+      </QueryClientProvider>
     ),
   ],
 } satisfies Meta<typeof Home>;
